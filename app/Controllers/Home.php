@@ -6,6 +6,7 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('welcome_message');
+        // Memanggil file dashboard.php yang otomatis mewarisi sistem layouting template
+        return view('dashboard');
     }
 }
