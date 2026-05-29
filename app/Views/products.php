@@ -28,48 +28,34 @@
     
     <div class="grid grid-cols-1 gap-x-gutter gap-y-16 md:grid-cols-4">
         
-        <?php 
-        // Array dummy untuk memudahkan duplikasi 20 produk agar rapi
-        $products = [
-            ['img' => 'produk1.png', 'title' => 'Jasa Atlas.ti untuk Analisis dan Olah Data Kualitatif', 'price' => 'Rp500.000', 'badge' => ''],
-            ['img' => 'produk1.png', 'title' => 'Jasa Cari Jurnal Scopus & Sinta untuk Referensi', 'price' => 'Rp100.000', 'badge' => ''],
-            ['img' => 'produk1.png', 'title' => 'Jasa Cek Turnitin Murah Cepat Terpercaya', 'price' => 'Rp30.000', 'badge' => '40% OFF', 'old_price' => 'Rp50.000'],
-            ['img' => 'produk1.png', 'title' => 'Jasa Coding Arduino & IoT Murah dan Terpercaya!', 'price' => 'Rp500.000', 'badge' => ''],
-            ['img' => 'produk1.png', 'title' => 'Jasa Merapikan Skripsi Tesis & Disertasi Terpercaya', 'price' => 'Rp200.000', 'badge' => ''],
-            ['img' => 'produk1.png', 'title' => 'Joki Tugas Kuliah Jogja Murah No.1 Yogyakarta', 'price' => 'Rp50.000', 'badge' => '']
-        ];
-        
-        // Looping untuk menghasilkan 20 produk (5 baris)
-        for ($i = 0; $i < 20; $i++): 
-            $p = $products[$i % count($products)];
-        ?>
+        <?php foreach ($produk_jasa as $p): ?>
         <div class="flex flex-col items-center text-center group">
             <div class="relative w-full mb-6 overflow-hidden bg-surface-container-low aspect-[1.15]">
-                <?php if($p['badge'] !== ''): ?>
-                <div class="absolute top-4 left-4 z-10 bg-black text-white text-[10px] font-bold px-2 py-1 uppercase"><?= $p['badge'] ?></div>
+                <?php if($p->discount): ?>
+                <div class="absolute top-4 left-4 z-10 bg-black text-white text-[10px] font-bold px-2 py-1 uppercase"><?= esc($p->discount) ?></div>
                 <?php endif; ?>
                 
-                <img alt="<?= $p['title'] ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="<?= base_url('images/' . $p['img']) ?>"/>
+                <img alt="<?= esc($p->nama_produk) ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="<?= base_url('images/produk1.png') ?>"/>
             
             </div>
-            <h3 class="text-headline-sm font-headline-sm mb-3 leading-tight text-[22px] px-2 hover:text-primary transition-colors cursor-pointer line-clamp-2" title="<?= $p['title'] ?>">
-                <?= $p['title'] ?>
+            <h3 class="text-headline-sm font-headline-sm mb-3 leading-tight text-[22px] px-2 hover:text-primary transition-colors cursor-pointer line-clamp-2" title="<?= esc($p->nama_produk) ?>">
+                <?= esc($p->nama_produk) ?>
             </h3>
             
-            <?php if(isset($p['old_price'])): ?>
+            <?php if($p->harga_normal): ?>
             <div class="flex items-center gap-2 mb-4">
-                <span class="text-secondary-fixed-dim line-through text-body-md"><?= $p['old_price'] ?></span>
-                <span class="text-body-lg font-bold text-secondary"><?= $p['price'] ?></span>
+                <span class="text-secondary-fixed-dim line-through text-body-md"><?= esc($p->harga_normal) ?></span>
+                <span class="text-body-lg font-bold text-secondary"><?= esc($p->harga_jual) ?></span>
             </div>
             <?php else: ?>
-            <p class="text-body-lg font-bold text-secondary mb-4"><?= $p['price'] ?></p>
+            <p class="text-body-lg font-bold text-secondary mb-4"><?= esc($p->harga_jual) ?></p>
             <?php endif; ?>
             
             <button class="trigger-login bg-[#a8977b] text-white px-10 py-3 font-label-md hover:opacity-90 transition-opacity rounded-sm text-[12px] uppercase tracking-widest w-full max-w-[200px]">
                 Add to cart
             </button>
         </div>
-        <?php endfor; ?>
+        <?php endforeach; ?>
         
     </div>
     

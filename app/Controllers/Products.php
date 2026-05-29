@@ -6,7 +6,14 @@ class Products extends BaseController
 {
     public function index(): string
     {
-        // Memanggil file app/Views/products.php
-        return view('products');
+        $produkModel = new \App\Models\ProdukModel();
+        
+        $data = [
+            'produk_jasa' => $produkModel->findAll()
+        ];
+        
+        $data = array_merge($this->viewData, $data);
+
+        return view('products', $data);
     }
 }

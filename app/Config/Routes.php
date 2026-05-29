@@ -14,3 +14,5 @@ $routes->get('blog', 'Blog::index');
 $routes->get('contact', 'Contact::index');
 
 $routes->get('freelance', 'Freelance::index');
+
+$routes->get('cart', 'Cart::index');

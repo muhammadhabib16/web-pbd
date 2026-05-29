@@ -6,7 +6,14 @@ class Blog extends BaseController
 {
     public function index(): string
     {
-        // Memanggil file app/Views/blog.php
-        return view('blog');
+        $blogModel = new \App\Models\BlogModel();
+        
+        $data = [
+            'blogs' => $blogModel->findAll()
+        ];
+        
+        $data = array_merge($this->viewData, $data);
+
+        return view('blog', $data);
     }
 }

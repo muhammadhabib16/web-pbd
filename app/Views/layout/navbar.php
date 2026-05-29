@@ -22,9 +22,9 @@
         <button class="hover:text-[#A68A64] transition-colors flex items-center">
             <span class="material-symbols-outlined text-[24px]">person</span>
         </button>
-        <button class="hover:text-[#A68A64] transition-colors flex items-center">
+        <a href="<?= base_url('cart') ?>" class="hover:text-[#A68A64] transition-colors flex items-center">
             <span class="material-symbols-outlined text-[24px]">shopping_bag</span>
-        </button>
+        </a>
     </div>
 </nav>
 </header>

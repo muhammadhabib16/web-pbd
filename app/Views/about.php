@@ -23,6 +23,7 @@
         <section class="mb-16">
             <h2 class="text-2xl font-bold text-slate-900 mb-6" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Pengenalan AkademikPro.id</h2>
             <div class="flex flex-col md:flex-row gap-8 text-[13px] text-gray-700 leading-relaxed text-justify">
+                <?= $pengaturan->deskripsi_website ?: '
                 <div class="flex-1">
                     <p>
                         AkademikPro.id adalah platform akademik yang fokus pada kualitas dan dedikasi. Kami menyediakan layanan profesional untuk menunjang kebutuhan civitas akademika di seluruh Indonesia. Berawal dari kepedulian terhadap tingginya kebutuhan jasa akademik yang terpercaya, kami hadir memberikan solusi terbaik yang mengedepankan nilai kejujuran, kecepatan, dan ketepatan waktu. Layanan kami dirancang khusus untuk mempermudah Anda dalam berbagai aspek akademik dengan standar hasil yang memuaskan.
@@ -32,7 +33,7 @@
                     <p>
                         Dengan dukungan tim ahli dan profesional di bidangnya, AkademikPro.id telah dipercaya oleh ribuan klien untuk menangani berbagai macam proyek akademik. Mulai dari pengerjaan tugas akhir, analisis statistik, pembuatan jurnal, hingga konsultasi akademik lainnya. Kami berkomitmen memberikan pengalaman layanan yang aman, rahasia, serta menjamin privasi setiap klien. Kepercayaan Anda adalah prioritas utama kami.
                     </p>
-                </div>
+                </div>' ?>
             </div>
         </section>
 
@@ -43,16 +44,17 @@
             <div class="mb-6">
                 <h3 class="text-xl font-bold text-slate-900 mb-4" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Visi</h3>
                 <p class="text-[13px] text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                    Menjadi platform penyedia layanan jasa akademik terdepan dan terpercaya di Indonesia yang mampu memberikan solusi cerdas, inovatif, dan profesional untuk setiap kebutuhan akademik.
+                    <?= $pengaturan->visi ?: 'Menjadi platform penyedia layanan jasa akademik terdepan dan terpercaya di Indonesia yang mampu memberikan solusi cerdas, inovatif, dan profesional untuk setiap kebutuhan akademik.' ?>
                 </p>
             </div>
 
             <div>
                 <h3 class="text-xl font-bold text-slate-900 mb-4" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Misi</h3>
                 <ol class="text-[13px] text-gray-700 max-w-3xl mx-auto leading-relaxed text-center flex flex-col items-center">
+                    <?= $pengaturan->misi ?: '
                     <li class="mb-1">1. Memberikan layanan jasa akademik yang berkualitas dan tepat waktu.</li>
                     <li class="mb-1">2. Mengedepankan kepuasan klien dengan hasil kerja yang memuaskan dan profesional.</li>
-                    <li class="mb-1">3. Menjaga privasi dan kerahasiaan data setiap klien dengan tingkat keamanan tinggi.</li>
+                    <li class="mb-1">3. Menjaga privasi dan kerahasiaan data setiap klien dengan tingkat keamanan tinggi.</li>' ?>
                 </ol>
             </div>
         </section>
@@ -66,15 +68,16 @@
                     Pilihan yang tepat sangat menentukan kualitas hasil akhir akademik Anda. Kami hadir dengan berbagai keunggulan:
                 </p>
                 <ul class="text-[13px] text-gray-700 list-disc list-outside ml-10 space-y-2 mb-10 text-justify">
+                    <?= $pengaturan->keunggulan ?: '
                     <li><strong>Harga Bersaing:</strong> Kami menawarkan harga yang relatif terjangkau dan sepadan dengan kualitas yang kami berikan.</li>
                     <li><strong>Kualitas Terjamin:</strong> Hasil kerja yang diberikan dikerjakan oleh tim ahli dengan standar kualitas yang tinggi dan bebas dari plagiasi.</li>
                     <li><strong>Tepat Waktu:</strong> Kami memahami pentingnya waktu dalam akademik, sehingga setiap pekerjaan diselesaikan sesuai tenggat waktu.</li>
                     <li><strong>Keamanan Data:</strong> Identitas dan kerahasiaan tugas klien menjadi prioritas utama yang kami jaga sepenuhnya.</li>
                     <li><strong>Revisi Gratis:</strong> Kami menyediakan layanan revisi untuk memastikan hasil pekerjaan benar-benar sesuai dengan permintaan dan standar Anda.</li>
-                    <li><strong>Layanan Customer Service 24/7:</strong> Admin kami responsif dan siap melayani Anda kapanpun Anda butuhkan.</li>
+                    <li><strong>Layanan Customer Service 24/7:</strong> Admin kami responsif dan siap melayani Anda kapanpun Anda butuhkan.</li>' ?>
                 </ul>
                 <div class="flex justify-center">
-                    <a href="https://api.whatsapp.com/send?phone=6282398122966" class="bg-[#B49E78] hover:bg-[#a38f6c] text-white px-8 py-2.5 font-bold rounded shadow transition-colors text-[13px]">
+                    <a href="https://api.whatsapp.com/send?phone=<?= esc($pengaturan->kontak_phone) ?>" class="bg-[#B49E78] hover:bg-[#a38f6c] text-white px-8 py-2.5 font-bold rounded shadow transition-colors text-[13px]">
                         Hubungi Kami
                     </a>
                 </div>
@@ -128,11 +131,12 @@
                 Untuk memesan layanan di AkademikPro.id, ikuti langkah-langkah mudah berikut:
             </p>
             <ol class="text-[13px] text-gray-700 list-decimal list-outside ml-5 space-y-2 mb-6">
-                <li><strong>Konsultasi:</strong> Hubungi admin kami melalui WhatsApp di nomor 082398122966 untuk mengkonsultasikan tugas atau pesanan Anda.</li>
+                <?= $pengaturan->langkah_pemesanan ?: '
+                <li><strong>Konsultasi:</strong> Hubungi admin kami melalui WhatsApp di nomor ' . esc($pengaturan->kontak_phone) . ' untuk mengkonsultasikan tugas atau pesanan Anda.</li>
                 <li><strong>Kesepakatan & Harga:</strong> Admin akan memberikan harga dan kesepakatan sesuai dengan tingkat kesulitan dan tenggat waktu.</li>
                 <li><strong>Pembayaran DP:</strong> Lakukan pembayaran uang muka (DP) melalui rekening atau dompet digital (BCA/BRI/BNI/OVO) sesuai kesepakatan awal.</li>
                 <li><strong>Proses Pengerjaan:</strong> Tim ahli kami akan langsung mengerjakan pesanan Anda.</li>
-                <li><strong>Pengiriman & Revisi:</strong> Hasil pengerjaan akan kami kirim. Jika diperlukan, Anda dapat meminta revisi secara gratis.</li>
+                <li><strong>Pengiriman & Revisi:</strong> Hasil pengerjaan akan kami kirim. Jika diperlukan, Anda dapat meminta revisi secara gratis.</li>' ?>
             </ol>
             <p class="text-[13px] text-gray-700 text-justify">
                 Jangan ragu untuk bertanya, tim layanan kami siap melayani Anda. Kami sangat menghargai privasi dan kepercayaan Anda, sehingga setiap karya dan identitas Anda akan selalu terjamin kerahasiaannya.

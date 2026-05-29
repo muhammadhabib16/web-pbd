@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class About extends BaseController
+class Cart extends BaseController
 {
     public function index(): string
     {
-        return view('about', $this->viewData);
+        return view('cart', $this->viewData);
     }
 }
