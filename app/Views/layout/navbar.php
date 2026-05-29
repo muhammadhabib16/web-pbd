@@ -1,23 +1,30 @@
-<header class="bg-surface-white dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 left-0 right-0 z-50">
-<nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
-<div class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">
-    AkademikPro.id
-</div>
-<div class="hidden md:flex items-center space-x-8">
-    <a class="<?= url_is('/') ? 'text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1' : 'text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200' ?> text-label-md font-label-md" href="<?= base_url('/') ?>">Home</a>
-    <a class="<?= url_is('products') ? 'text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1' : 'text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200' ?> text-label-md font-label-md" href="<?= base_url('products') ?>">Products</a>
-    <a class="<?= url_is('about') ? 'text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1' : 'text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200' ?> text-label-md font-label-md" href="<?= base_url('about') ?>">About</a>
-    <a class="<?= url_is('blog') ? 'text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1' : 'text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200' ?> text-label-md font-label-md" href="<?= base_url('blog') ?>">Blog</a>
-    <a class="<?= url_is('contact') ? 'text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1' : 'text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200' ?> text-label-md font-label-md" href="<?= base_url('contact') ?>">Contact</a>
-</div>
-<div class="flex items-center gap-4">
-    <div class="hidden lg:flex items-center gap-2 mr-4">
-        <span class="trigger-search material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity">search</span>
-        <span id="btnCart" class="material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity">shopping_cart</span>
-        <span id="btnProfile" class="material-symbols-outlined text-primary cursor-pointer hover:opacity-70 transition-opacity">person</span>
+<header class="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
+<nav class="flex justify-between items-center w-full px-6 md:px-12 py-4 max-w-[1400px] mx-auto">
+    <div class="flex items-center gap-2 text-xl font-bold text-[#333333]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#A68A64]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 17 12 8 21 17"></polyline>
+            <polyline points="3 22 12 13 21 22"></polyline>
+        </svg>
+        AkademikPro.id
     </div>
-    <button class="bg-primary hover:bg-primary-container text-on-primary px-6 py-2.5 rounded-lg text-label-md font-label-md transition-all active:scale-95">Daftar Freelance</button>
-</div>
-
+    <div class="hidden md:flex items-center space-x-10 text-[15px]">
+        <a class="text-[#A68A64] font-medium" href="<?= base_url('/') ?>">Home</a>
+        <a class="text-gray-600 font-medium hover:text-[#A68A64] transition-colors" href="<?= base_url('products') ?>">Products</a>
+        <a class="text-gray-600 font-medium hover:text-[#A68A64] transition-colors" href="<?= base_url('about') ?>">About</a>
+        <a class="text-gray-600 font-medium hover:text-[#A68A64] transition-colors" href="<?= base_url('blog') ?>">Blog</a>
+        <a class="text-gray-600 font-medium hover:text-[#A68A64] transition-colors" href="<?= base_url('contact') ?>">Contact</a>
+        <a class="text-gray-600 font-medium hover:text-[#A68A64] transition-colors" href="<?= base_url('freelance') ?>">Daftar Freelance</a>
+    </div>
+    <div class="flex items-center gap-6 text-gray-700">
+        <button class="hover:text-[#A68A64] transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[24px]">search</span>
+        </button>
+        <button class="hover:text-[#A68A64] transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[24px]">person</span>
+        </button>
+        <button class="hover:text-[#A68A64] transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[24px]">shopping_bag</span>
+        </button>
+    </div>
 </nav>
 </header>
