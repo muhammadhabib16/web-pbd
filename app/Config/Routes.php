@@ -12,3 +12,5 @@ $routes->get('about', 'About::index');
 $routes->get('blog', 'Blog::index');
 
 $routes->get('contact', 'Contact::index');
+
+$routes->get('freelance', 'Freelance::index');

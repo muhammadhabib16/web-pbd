@@ -2,101 +2,138 @@
 
 <?= $this->section('content') ?>
 
-<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap pt-32">
-<!-- Blog Header -->
-<div class="mb-16 text-center max-w-2xl mx-auto">
-<span class="text-primary uppercase tracking-widest text-label-sm font-label-sm mb-4 block">Wawasan Akademik</span>
-<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg mb-6">Blog AkademikPro.id</h1>
-<p class="text-body-lg font-body-lg text-secondary">
-                    Artikel blog yang kami sajikan terdiri dari beberapa artikel yang berhubungan dengan ruang lingkup akademik. Silahkan explore lebih lanjut!
-                </p>
-</div>
+<main class="pt-24 pb-20 bg-[#fbfbfb]">
+    <div class="max-w-[1100px] mx-auto px-6 md:px-16">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest block mb-2">HOME / BLOG</span>
+            <h1 class="text-4xl md:text-[44px] font-bold text-slate-900" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Blog</h1>
+        </div>
 
-<!-- Editorial Bento Grid Layout -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-<!-- Main Featured Post -->
-<article class="md:col-span-8 group relative overflow-hidden rounded-xl border border-outline-variant bg-white">
-<div class="aspect-[16/9] overflow-hidden">
-<img alt="Mengatasi Deadline Kuliah" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/ADBb0uhe4PrNaB0IJFqO5z37sL8KVfLI1MvZwfrBqSQBcqBgIWocjOJ_Hs9jiIJWKfxQRRCwzQmInlbwtzCgnQJOnzvycV0kyS7cjJYyQyjjHUS37OSklsX3EJusejW6yh1uHgrwX78Gu418LAZ7qgS3LRk_JuEYjILPd-SfMNTM23YbYmwSilc5u8C4MG-Kbehq2eQrNQK628ar5CIjLZUMK2pDzBxbrZIPXffoYQI6ayIz8-EC3wZLgB7axbE"/>
-</div>
-<div class="p-8">
-<div class="flex items-center gap-4 mb-4">
-<span class="px-3 py-1 bg-primary-container/20 text-on-primary-container rounded-full text-label-sm font-label-sm">Jasa Tugas Kuliah</span>
-<span class="text-text-subtle text-label-sm font-label-sm">May 24, 2026</span>
-</div>
-<h2 class="text-headline-md font-headline-md mb-4 group-hover:text-primary transition-colors">
-                        Mengatasi Deadline Kuliah: Pakai Joki Tugas Kuliah AkademikPro.id Saja!
-                    </h2>
-<p class="text-body-md font-body-md text-secondary mb-6 line-clamp-2">
-                        Menghadapi tumpukan tugas yang mendekati deadline seringkali membuat mahasiswa stres. AkademikPro.id hadir memberikan solusi profesional untuk membantu Anda tetap unggul secara akademik tanpa mengorbankan kesehatan mental.
-                    </p>
-<a class="inline-flex items-center text-primary font-label-md gap-2 hover:gap-4 transition-all" href="#">
-                        Baca Selengkapnya <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</a>
-</div>
-</article>
+        <!-- Grid Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="Mengatasi Deadline Kuliah" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">JASA TUGAS KULIAH</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Mengatasi Deadline Kuliah: Pakai Joki Tugas Kuliah AkademikPro.id Saja!
+                </h2>
+            </div>
 
-<!-- Secondary Post Stack -->
-<div class="md:col-span-4 flex flex-col gap-gutter">
-<!-- Post 2 -->
-<article class="glass-card rounded-xl p-6 flex flex-col h-full border border-outline-variant group">
-<div class="aspect-video rounded-lg overflow-hidden mb-4">
-<img alt="Joki Karil UT" class="w-full h-full object-cover transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/ADBb0uiLvtfqf79MKu9Sh7FmM99WspjIwZeXRuIszz_Equ6N-NdP3eG218rqCbpNDRim4bVK9QsW4EvDPNzob_OF4SgeHdx1I9vvkV8wz5Um_JKRwGeSxRUBffBE_UoozsSohIZkOTJwLr0clnRRC6W2f0pQyWNEr-O-m02KoZkqrWyXyMt87S85UWZxu2oNQf3rlVb4NBbw3ksYF11m0vR2JuJnGqS8jJs7Gn8h7mPVuI97qys8hnfWf6E2Gcs"/>
-</div>
-<div>
-<span class="text-primary text-label-sm font-label-sm mb-2 block">Jasa Pembuatan Karya Ilmiah</span>
-<h3 class="text-headline-sm font-headline-sm text-[20px] leading-tight mb-3">
-                            Joki Karil UT Berapa? Di AkademikPro.id mulai Rp.150rb Saja!
-                        </h3>
-<a class="text-primary font-label-md text-sm underline decoration-primary/30 underline-offset-4 hover:decoration-primary transition-all" href="#">Lihat Detail Harga</a>
-</div>
-</article>
+            <!-- Card 2 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop" alt="Joki Karil UT Berapa" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">JASA PEMBUATAN KARYA ILMIAH</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Joki Karil UT Berapa? Di AkademikPro.id mulai Rp.150rb Saja!
+                </h2>
+            </div>
 
-<!-- Post 3 -->
-<article class="glass-card rounded-xl p-6 flex flex-col h-full border border-outline-variant group">
-<div class="aspect-video rounded-lg overflow-hidden mb-4">
-<img alt="Smart PLS Research" class="w-full h-full object-cover transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/ADBb0uh43bjSl7bgqeihRCoGwHpd9n-q335yVtnFPfkX-n_igc8RxUc0BaAiyPVP3nu23EO_D17rNxBhnsHQVdckgFUK2QQYrHRQuBC9I6ZPyZYCQiWVN2LlcTUbi6vXgUqFBKweIhlMWOpq63FXV98D3igA_oD0J5l2PWoXlzZJMlTj950qociTa8H7-XtcjNCzF4sgkQ0qBkFvHGmp7o62pbpSu_1nHYuMEqGZZOrIMFgcbIg-2r2wlXI6uw"/>
-</div>
-<div>
-<span class="text-primary text-label-sm font-label-sm mb-2 block">Jasa Olah Data Statistik</span>
-<h3 class="text-headline-sm font-headline-sm text-[20px] leading-tight mb-3">
-                            Penelitian Menggunakan Smart PLS
-                        </h3>
-<p class="text-body-md font-body-md text-secondary text-sm line-clamp-2 mb-4">
-                            Panduan lengkap mengenai penggunaan software Smart PLS untuk analisis Partial Least Squares Structural Equation Modeling (PLS-SEM) dalam penelitian akademik.
-                        </p>
-<a class="text-primary font-label-md text-sm inline-flex items-center gap-1" href="#">
-                            Selengkapnya <span class="material-symbols-outlined text-xs">open_in_new</span>
-</a>
-</div>
-</article>
-</div>
-</div>
+            <!-- Card 3 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="Penelitian Menggunakan Smart PLS" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">ARTIKEL, JASA OLAH DATA STATISTIK SMARTPLS</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Penelitian Menggunakan Smart PLS
+                </h2>
+            </div>
 
-<!-- Categories & Newsletter Section -->
-<section class="mt-section-gap grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-outline-variant pt-16">
-<div class="lg:col-span-2">
-<h3 class="font-headline-sm text-headline-sm mb-8">Kategori Populer</h3>
-<div class="flex flex-wrap gap-3">
-<a class="px-6 py-3 rounded-full border border-outline hover:bg-primary hover:text-white hover:border-primary transition-all font-label-md" href="#">Jasa Tugas Kuliah</a>
-<a class="px-6 py-3 rounded-full border border-outline hover:bg-primary hover:text-white hover:border-primary transition-all font-label-md" href="#">Karya Ilmiah</a>
-<a class="px-6 py-3 rounded-full border border-outline hover:bg-primary hover:text-white hover:border-primary transition-all font-label-md" href="#">Olah Data</a>
-<a class="px-6 py-3 rounded-full border border-outline hover:bg-primary hover:text-white hover:border-primary transition-all font-label-md" href="#">Tips Akademik</a>
-<a class="px-6 py-3 rounded-full border border-outline hover:bg-primary hover:text-white hover:border-primary transition-all font-label-md" href="#">Beasiswa</a>
-<a class="px-6 py-3 rounded-full border border-outline hover:bg-primary hover:text-white hover:border-primary transition-all font-label-md" href="#">Translate</a>
-</div>
-</div>
-<div class="bg-surface-muted p-8 rounded-xl border border-outline-variant">
-<h3 class="font-headline-sm text-headline-sm mb-4">Langganan Update</h3>
-<p class="text-body-md font-body-md text-secondary mb-6">Dapatkan tips akademik terbaru langsung di email Anda setiap minggu.</p>
-<form class="space-y-4">
-<input class="w-full px-4 py-3 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none" placeholder="Email Address" type="email"/>
-<button class="w-full bg-inverse-surface text-surface-white py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">
-                        Subscribe Now
-                    </button>
-</form>
-</div>
-</section>
+            <!-- Card 4 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?q=80&w=600&auto=format&fit=crop" alt="Harga Makalah 5 Lembar" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">ARTIKEL, JASA PEMBUATAN KARYA ILMIAH, JASA PEMBUATAN MAKALAH</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Berapa Harga Makalah 5 Lembar di AkademikPro.id? Mulai 50k Saja!
+                </h2>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="Harga Makalah 10 Lembar" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">ARTIKEL, JASA PEMBUATAN MAKALAH</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Berapa Harga Makalah 10 Lembar? Di AkademikPro.id Mulai 100rb-an Saja!
+                </h2>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop" alt="Smart PLS dan SPSS" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">ARTIKEL, SMARTPLS, SPSS</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Perbedaan Smart PLS dan SPSS Lengkap!
+                </h2>
+            </div>
+            
+            <!-- Card 7 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="SEM PLS" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">SMARTPLS, ARTIKEL</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Alasan Menggunakan SEM PLS untuk Penelitian
+                </h2>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="SPSS Kuantitatif" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">SPSS, ARTIKEL</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    SPSS dalam Penelitian Kuantitatif
+                </h2>
+            </div>
+            
+            <!-- Card 9 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=600&auto=format&fit=crop" alt="Metode SPSS" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">ARTIKEL, SPSS</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    Metode SPSS dalam Penelitian – AkademikPro.id
+                </h2>
+            </div>
+
+            <!-- Card 10 -->
+            <div class="bg-white p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all cursor-pointer">
+                <div class="aspect-[4/3] bg-gray-100 mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="7 Alasan Menggunakan SPSS" class="w-full h-full object-cover grayscale-[20%]">
+                </div>
+                <div class="text-[8.5px] text-gray-500 uppercase font-bold tracking-wider mb-2.5">ARTIKEL, SPSS</div>
+                <h2 class="text-[16px] font-bold text-slate-900 leading-snug" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
+                    7 Alasan Menggunakan SPSS dalam Penelitian
+                </h2>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-16 flex justify-center items-center gap-3">
+            <button class="w-8 h-8 flex items-center justify-center bg-[#A68A64] text-white text-[11px] font-bold transition-colors">1</button>
+            <button class="w-8 h-8 flex items-center justify-center bg-transparent text-gray-500 hover:text-gray-900 text-[11px] font-bold transition-colors">2</button>
+            <button class="w-8 h-8 flex items-center justify-center bg-transparent text-gray-500 hover:text-gray-900 text-[11px] font-bold transition-colors">3</button>
+            <button class="px-4 py-1.5 flex items-center justify-center bg-transparent text-gray-500 hover:text-gray-900 text-[9px] font-bold tracking-widest border border-gray-200 hover:border-gray-300 ml-4 transition-colors">
+                NEXT <span class="material-symbols-outlined text-[13px] ml-1.5">chevron_right</span>
+            </button>
+        </div>
+
+    </div>
 </main>
 
 <?= $this->endSection() ?>
