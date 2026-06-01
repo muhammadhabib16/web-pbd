@@ -68,6 +68,29 @@ class Cart extends BaseController
         return redirect()->to('/cart')->with('cart_success', 'Produk berhasil dihapus dari keranjang.');
     }
 
+    public function update()
+    {
+        $session = session();
+        $cart = $session->get('cart') ?? [];
+        $qtys = $this->request->getPost('qty');
+
+        if ($qtys && is_array($qtys)) {
+            foreach ($qtys as $id => $qty) {
+                if (isset($cart[$id])) {
+                    $qty = (int)$qty;
+                    if ($qty > 0) {
+                        $cart[$id]['qty'] = $qty;
+                    } else {
+                        unset($cart[$id]);
+                    }
+                }
+            }
+            $session->set('cart', $cart);
+        }
+
+        return redirect()->to('/cart')->with('cart_success', 'Keranjang berhasil diperbarui!');
+    }
+
     public function checkout()
     {
         $session = session();

@@ -24,6 +24,7 @@
 
         <div class="flex flex-col lg:flex-row gap-10">
             <div class="flex-1">
+                <form action="<?= base_url('cart/update') ?>" method="POST">
                 <div class="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-gray-100 text-[13px] font-bold text-slate-900">
                     <div class="col-span-7">Product</div>
                     <div class="col-span-2 text-center">Quantity</div>
@@ -44,9 +45,9 @@
                     
                     <div class="col-span-6 md:col-span-2 flex items-center justify-start md:justify-center mt-4 md:mt-0">
                         <div class="flex items-center border border-[#e5e5e5] w-[90px] h-[40px]">
-                            <button class="w-8 h-full flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-50 transition-colors">-</button>
-                            <input type="text" value="<?= $item['qty'] ?>" class="w-full h-full text-center text-[13px] border-none outline-none font-medium text-slate-900" readonly>
-                            <button class="w-8 h-full flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-50 transition-colors">+</button>
+                            <button type="button" onclick="this.nextElementSibling.value = Math.max(1, parseInt(this.nextElementSibling.value) - 1)" class="w-8 h-full flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-50 transition-colors">-</button>
+                            <input type="text" name="qty[<?= $id ?>]" value="<?= $item['qty'] ?>" class="w-full h-full text-center text-[13px] border-none outline-none font-medium text-slate-900" readonly>
+                            <button type="button" onclick="this.previousElementSibling.value = parseInt(this.previousElementSibling.value) + 1" class="w-8 h-full flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-50 transition-colors">+</button>
                         </div>
                     </div>
                     
@@ -65,14 +66,15 @@
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8">
                     <div class="flex items-center gap-2 w-full sm:w-auto">
                         <input type="text" placeholder="Coupon code" class="w-full sm:w-[180px] h-[40px] px-4 border border-gray-200 text-[13px] outline-none focus:border-gray-400 transition-colors">
-                        <button class="bg-[#B49E78] text-white px-6 h-[40px] text-[13px] font-bold hover:bg-[#a38f6c] transition-colors whitespace-nowrap">
+                        <button type="button" onclick="alert('Fitur kupon saat ini belum tersedia.')" class="bg-[#B49E78] text-white px-6 h-[40px] text-[13px] font-bold hover:bg-[#a38f6c] transition-colors whitespace-nowrap">
                             Apply coupon
                         </button>
                     </div>
-                    <button class="w-full sm:w-auto bg-[#e8e8e8] text-slate-500 px-6 h-[40px] text-[13px] font-bold hover:bg-[#d5d5d5] hover:text-slate-900 transition-colors whitespace-nowrap">
+                    <button type="submit" class="w-full sm:w-auto bg-[#e8e8e8] text-slate-500 px-6 h-[40px] text-[13px] font-bold hover:bg-[#d5d5d5] hover:text-slate-900 transition-colors whitespace-nowrap">
                         Update cart
                     </button>
                 </div>
+                </form>
             </div>
 
             <div class="w-full lg:w-[350px] flex-shrink-0">

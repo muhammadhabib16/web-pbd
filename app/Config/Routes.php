@@ -25,6 +25,7 @@ $routes->get('auth/logout', 'Auth::logout');
 
 $routes->post('cart/add', 'Cart::add');
 $routes->get('cart/remove/(:any)', 'Cart::remove/$1');
+$routes->post('cart/update', 'Cart::update');
 $routes->get('cart/checkout', 'Cart::checkout');
 $routes->post('checkout/process', 'Cart::processCheckout');
 $routes->get('checkout/received', 'Cart::orderReceived');
