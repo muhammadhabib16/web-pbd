@@ -87,11 +87,27 @@
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             
-            // Opsional: Buka tab Register jika error berasal dari Register
-            <?php if(strpos(session()->getFlashdata('error'), 'mendaftar') !== false): ?>
-                switchTab('signup');
+            // Buka tab Register jika error/success berasal dari Register
+            <?php if(strpos(session()->getFlashdata('error'), 'mendaftar') !== false || session()->getFlashdata('success')): ?>
+                if(typeof switchTab === 'function') switchTab('signup');
             <?php endif; ?>
         }
+    });
+</script>
+<?php endif; ?>
+
+<?php if(session()->getFlashdata('login_success')): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Karena login berhasil, kita pastikan modal tertutup (jika sempat terbuka)
+        const modal = document.getElementById('modalOverlay');
+        if(modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        
+        // Memunculkan alert bawaan browser agar user tahu login berhasil
+        alert('<?= session()->getFlashdata('login_success') ?>');
     });
 </script>
 <?php endif; ?>

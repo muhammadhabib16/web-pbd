@@ -4,15 +4,43 @@ namespace App\Controllers;
 
 class Products extends BaseController
 {
-    public function index(): string
+    public function index()
     {
         $produkModel = new \App\Models\ProdukModel();
         
+        // Menangkap request sorting dari dropdown (misal: ?sort=price_low)
+        $sort = $this->request->getGet('sort');
+
+        // Logika Sorting Database
+        switch ($sort) {
+            case 'price_low':
+                // Menghapus 'Rp' dan titik di SQL agar bisa diurutkan sebagai angka murni
+                $produkModel->orderBy("CAST(REPLACE(REPLACE(harga_jual, 'Rp', ''), '.', '') AS UNSIGNED)", 'ASC', false);
+                break;
+            case 'price_high':
+                $produkModel->orderBy("CAST(REPLACE(REPLACE(harga_jual, 'Rp', ''), '.', '') AS UNSIGNED)", 'DESC', false);
+                break;
+            case 'latest':
+                // Mengutamakan produk dengan status 'Terbaru'
+                $produkModel->orderBy('status_produk', 'DESC');
+                break;
+            case 'popularity':
+                // Default sorting berdasar nama untuk popularity (karena belum ada tabel view/rating)
+                $produkModel->orderBy('nama_produk', 'ASC');
+                break;
+            default:
+                // Urutan bawaan
+                $produkModel->orderBy('nama_produk', 'ASC');
+                break;
+        }
+        
         $data = [
-            'produk_jasa' => $produkModel->findAll()
+            'produk_jasa' => $produkModel->findAll(),
+            'current_sort' => $sort // Menyimpan state sorting saat ini
         ];
         
-        $data = array_merge($this->viewData, $data);
+        // Gabungkan dengan viewData bawaan (jika ada data template global)
+        $data = array_merge($this->viewData ?? [], $data);
 
         return view('products', $data);
     }

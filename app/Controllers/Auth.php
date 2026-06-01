@@ -23,7 +23,7 @@ class Auth extends BaseController
                     'email_pengguna' => $user['email_pengguna'],
                     'isLoggedIn'     => true
                 ]);
-                return redirect()->back()->with('success', 'Berhasil login!');
+                return redirect()->back()->with('login_success', 'Berhasil login!');
             } else {
                 return redirect()->back()->with('error', 'Password salah.');
             }
