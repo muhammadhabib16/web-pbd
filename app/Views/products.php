@@ -51,9 +51,24 @@
             <p class="text-body-lg font-bold text-secondary mb-4"><?= esc($p->harga_jual) ?></p>
             <?php endif; ?>
             
-            <button class="trigger-login bg-[#a8977b] text-white px-10 py-3 font-label-md hover:opacity-90 transition-opacity rounded-sm text-[12px] uppercase tracking-widest w-full max-w-[200px]">
-                Add to cart
-            </button>
+            <!-- Logika Tombol Add to Cart -->
+            <?php if(session()->get('isLoggedIn')): ?>
+                <form action="<?= base_url('cart/add') ?>" method="POST" class="w-full max-w-[200px]">
+                    <input type="hidden" name="id" value="<?= md5($p->nama_produk) ?>">
+                    <input type="hidden" name="name" value="<?= esc($p->nama_produk) ?>">
+                    <input type="hidden" name="price" value="<?= preg_replace('/[^0-9]/', '', $p->harga_jual) ?>"> 
+                    <input type="hidden" name="image" value="produk1.png">
+                    
+                    <button type="submit" class="bg-[#a8977b] text-white px-10 py-3 font-label-md hover:opacity-90 transition-opacity rounded-sm text-[12px] uppercase tracking-widest w-full">
+                        Add to cart
+                    </button>
+                </form>
+            <?php else: ?>
+                <button class="trigger-login bg-[#a8977b] text-white px-10 py-3 font-label-md hover:opacity-90 transition-opacity rounded-sm text-[12px] uppercase tracking-widest w-full max-w-[200px]">
+                    Add to cart
+                </button>
+            <?php endif; ?>
+
         </div>
         <?php endforeach; ?>
         

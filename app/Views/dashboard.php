@@ -110,15 +110,30 @@
                         <span class="line-through text-gray-400 ml-1"><?= esc($prod->harga_normal) ?></span>
                     <?php endif; ?>
                 </div>
-                <button class="bg-[#A68A64] hover:bg-[#8f7553] text-white px-6 py-2 text-sm font-bold transition-colors">
-                    Add to cart
-                </button>
+                
+                <!-- Logika Tombol Add to Cart -->
+                <?php if(session()->get('isLoggedIn')): ?>
+                    <form action="<?= base_url('cart/add') ?>" method="POST" class="w-full text-center">
+                        <input type="hidden" name="id" value="<?= md5($prod->nama_produk) ?>">
+                        <input type="hidden" name="name" value="<?= esc($prod->nama_produk) ?>">
+                        <input type="hidden" name="price" value="<?= preg_replace('/[^0-9]/', '', $prod->harga_jual) ?>"> 
+                        <input type="hidden" name="image" value="produk1.png">
+                        <button type="submit" class="bg-[#A68A64] hover:bg-[#8f7553] text-white px-6 py-2 text-sm font-bold transition-colors w-1/2">
+                            Add to cart
+                        </button>
+                    </form>
+                <?php else: ?>
+                    <button class="trigger-login bg-[#A68A64] hover:bg-[#8f7553] text-white px-6 py-2 text-sm font-bold transition-colors w-1/2">
+                        Add to cart
+                    </button>
+                <?php endif; ?>
+
             </div>
             <?php endforeach; ?>
         </div>
 
         <div class="text-center mt-12">
-            <a href="#" class="inline-flex items-center gap-2 bg-[#F3F4F6] text-slate-700 px-6 py-2.5 rounded text-[13px] font-bold hover:bg-gray-200 transition-colors">
+            <a href="<?= base_url('products') ?>" class="inline-flex items-center gap-2 bg-[#F3F4F6] text-slate-700 px-6 py-2.5 rounded text-[13px] font-bold hover:bg-gray-200 transition-colors">
                 Semua Produk <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
         </div>
@@ -186,7 +201,7 @@
     <div class="max-w-[1200px] mx-auto">
         <div class="flex flex-col sm:flex-row justify-between items-center mb-10">
             <h2 class="text-[28px] font-bold text-slate-900 mb-4 sm:mb-0" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Produk Jasa Terbaru</h2>
-            <a href="#" class="inline-flex items-center gap-2 bg-[#F3F4F6] text-slate-700 px-5 py-2.5 rounded text-[13px] font-bold hover:bg-gray-200 transition-colors">
+            <a href="<?= base_url('products') ?>" class="inline-flex items-center gap-2 bg-[#F3F4F6] text-slate-700 px-5 py-2.5 rounded text-[13px] font-bold hover:bg-gray-200 transition-colors">
                 Semua Produk <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </a>
         </div>
@@ -212,16 +227,29 @@
                         <span class="line-through text-gray-400 ml-1"><?= esc($prod->harga_normal) ?></span>
                     <?php endif; ?>
                 </div>
-                <button class="bg-[#A68A64] hover:bg-[#8f7553] text-white px-6 py-2.5 text-[13px] font-bold transition-colors w-3/4 mx-auto rounded-sm">
-                    Add to cart
-                </button>
+
+                <!-- Logika Tombol Add to Cart -->
+                <?php if(session()->get('isLoggedIn')): ?>
+                    <form action="<?= base_url('cart/add') ?>" method="POST" class="w-full text-center">
+                        <input type="hidden" name="id" value="<?= md5($prod->nama_produk) ?>">
+                        <input type="hidden" name="name" value="<?= esc($prod->nama_produk) ?>">
+                        <input type="hidden" name="price" value="<?= preg_replace('/[^0-9]/', '', $prod->harga_jual) ?>"> 
+                        <input type="hidden" name="image" value="produk1.png">
+                        <button type="submit" class="bg-[#A68A64] hover:bg-[#8f7553] text-white px-6 py-2.5 text-[13px] font-bold transition-colors w-3/4 mx-auto rounded-sm">
+                            Add to cart
+                        </button>
+                    </form>
+                <?php else: ?>
+                    <button class="trigger-login bg-[#A68A64] hover:bg-[#8f7553] text-white px-6 py-2.5 text-[13px] font-bold transition-colors w-3/4 mx-auto rounded-sm">
+                        Add to cart
+                    </button>
+                <?php endif; ?>
+
             </div>
             <?php endforeach; ?>
         </div>
     </div>
 </section>
-
-
 
 <!-- Testimoni Customer Section -->
 <section class="py-20 px-6 md:px-16 bg-white">
@@ -391,7 +419,5 @@
         </div>
     </div>
 </section>
-
-
 
 <?= $this->endSection() ?>
