@@ -25,3 +25,5 @@ $routes->get('auth/logout', 'Auth::logout');
 
 $routes->post('cart/add', 'Cart::add');
 $routes->get('cart/remove/(:any)', 'Cart::remove/$1');
+
+$routes->get('products/searchAjax', 'Products::searchAjax');

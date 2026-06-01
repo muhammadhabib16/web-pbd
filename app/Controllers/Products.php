@@ -8,28 +8,29 @@ class Products extends BaseController
     {
         $produkModel = new \App\Models\ProdukModel();
         
-        // Menangkap request sorting dari dropdown (misal: ?sort=price_low)
         $sort = $this->request->getGet('sort');
+        $keyword = $this->request->getGet('keyword'); // Menangkap kata kunci
+
+        // Jika ada pencarian dari halaman full
+        if (!empty($keyword)) {
+            $produkModel->like('nama_produk', $keyword);
+        }
 
         // Logika Sorting Database
         switch ($sort) {
             case 'price_low':
-                // Menghapus 'Rp' dan titik di SQL agar bisa diurutkan sebagai angka murni
                 $produkModel->orderBy("CAST(REPLACE(REPLACE(harga_jual, 'Rp', ''), '.', '') AS UNSIGNED)", 'ASC', false);
                 break;
             case 'price_high':
                 $produkModel->orderBy("CAST(REPLACE(REPLACE(harga_jual, 'Rp', ''), '.', '') AS UNSIGNED)", 'DESC', false);
                 break;
             case 'latest':
-                // Mengutamakan produk dengan status 'Terbaru'
                 $produkModel->orderBy('status_produk', 'DESC');
                 break;
             case 'popularity':
-                // Default sorting berdasar nama untuk popularity (karena belum ada tabel view/rating)
                 $produkModel->orderBy('nama_produk', 'ASC');
                 break;
             default:
-                // Urutan bawaan
                 $produkModel->orderBy('nama_produk', 'ASC');
                 break;
         }
@@ -37,13 +38,29 @@ class Products extends BaseController
         $data = [
             'produk_jasa' => $produkModel->paginate(8, 'produk'),
             'pager' => $produkModel->pager,
-            'current_sort' => $sort // Menyimpan state sorting saat ini
+            'current_sort' => $sort,
+            'keyword' => $keyword // Kirim keyword kembali ke view agar nempel di form
         ];
         
-        // Gabungkan dengan viewData bawaan (jika ada data template global)
         $data = array_merge($this->viewData ?? [], $data);
 
         return view('products', $data);
+    }
+
+    // Fungsi Baru untuk Live Search di dalam Modal (AJAX)
+    public function searchAjax()
+    {
+        $keyword = $this->request->getGet('keyword');
+        $produkModel = new \App\Models\ProdukModel();
+        
+        if (empty($keyword)) {
+            return $this->response->setJSON([]);
+        }
+
+        // Cari produk berdasar nama, limit 6 agar modal tidak kepanjangan
+        $results = $produkModel->like('nama_produk', $keyword)->findAll(6); 
+        
+        return $this->response->setJSON($results);
     }
 
     public function detail($nama)

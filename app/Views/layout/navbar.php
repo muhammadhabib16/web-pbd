@@ -16,9 +16,11 @@
             <a class="text-gray-600 font-medium hover:text-[#A68A64] transition-colors" href="<?= base_url('freelance') ?>">Daftar Freelance</a>
         </div>
         <div class="flex items-center gap-6 text-gray-700">
-            <button class="hover:text-[#A68A64] transition-colors flex items-center">
+            
+            <button class="trigger-search hover:text-[#A68A64] transition-colors flex items-center">
                 <span class="material-symbols-outlined text-[24px]">search</span>
             </button>
+            
             <button class="hover:text-[#A68A64] transition-colors flex items-center">
                 <span class="material-symbols-outlined text-[24px]">person</span>
             </button>
