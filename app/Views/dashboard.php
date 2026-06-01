@@ -99,7 +99,7 @@
                     <?php if ($prod->discount): ?>
                         <span class="absolute top-4 left-4 bg-black text-white text-[10px] px-2 py-1 font-bold z-10"><?= esc($prod->discount) ?></span>
                     <?php endif; ?>
-                    <span class="material-symbols-outlined text-[100px] <?= $pic ?>"><?= esc($prod->gambar_produk) ?></span>
+                    <img src="<?= base_url('images/' . esc($prod->gambar_produk)) ?>" alt="<?= esc($prod->nama_produk) ?>" class="w-full h-full object-cover">
                 </div>
                 <h3 class="text-center font-bold text-base text-slate-900 leading-snug mb-2 px-2" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
                     <?= esc($prod->nama_produk) ?>
@@ -184,7 +184,7 @@
             ?>
             <div class="flex flex-col group cursor-pointer">
                 <div class="w-full aspect-[4/3] mb-5 overflow-hidden flex items-center justify-center relative" style="background-color: <?= $bbg ?>;">
-                    <span class="material-symbols-outlined text-[80px] <?= $bic ?>"><?= esc($blog->gambar_blog) ?></span>
+                    <img src="<?= base_url('images/blog/' . esc($blog->gambar_blog) . '.webp') ?>" alt="<?= esc($blog->judul_blog) ?>" class="w-full h-full object-cover">
                 </div>
                 <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3 block"><?= esc($blog->kategori_produk) ?></span>
                 <h3 class="font-bold text-[19px] text-slate-900 leading-snug group-hover:text-[#A68A64] transition-colors" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
@@ -216,7 +216,7 @@
             ?>
             <div class="flex flex-col items-center group">
                 <div class="w-full aspect-square mb-4 relative flex items-center justify-center overflow-hidden" style="background-color: <?= $tbg ?>;">
-                    <span class="material-symbols-outlined text-[80px] <?= $tic ?>"><?= esc($prod->gambar_produk) ?></span>
+                    <img src="<?= base_url('images/' . esc($prod->gambar_produk)) ?>" alt="<?= esc($prod->nama_produk) ?>" class="w-full h-full object-cover">
                 </div>
                 <h3 class="text-center font-bold text-[15px] text-slate-900 leading-snug mb-2 px-2" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">
                     <?= esc($prod->nama_produk) ?>

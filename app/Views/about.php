@@ -15,7 +15,7 @@
         <div class="mb-16">
             <!-- Gunakan gambar ilustrasi sarjana seperti pada screenshot. Saya akan pakai placeholder image -->
             <div class="w-full h-auto md:h-[400px] bg-[#f8f9fa] rounded-2xl overflow-hidden flex items-center justify-center">
-               <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop" alt="About Us Graduation" class="w-full h-full object-cover grayscale-[20%]">
+               <img src="https://plus.unsplash.com/premium_vector-1723628218448-061a2c85b5e6?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="About Us Graduation" class="w-full h-full object-cover grayscale-[20%]">
             </div>
         </div>
 

@@ -35,7 +35,8 @@ class Products extends BaseController
         }
         
         $data = [
-            'produk_jasa' => $produkModel->findAll(),
+            'produk_jasa' => $produkModel->paginate(8, 'produk'),
+            'pager' => $produkModel->pager,
             'current_sort' => $sort // Menyimpan state sorting saat ini
         ];
         
@@ -43,5 +44,24 @@ class Products extends BaseController
         $data = array_merge($this->viewData ?? [], $data);
 
         return view('products', $data);
+    }
+
+    public function detail($nama)
+    {
+        $produkModel = new \App\Models\ProdukModel();
+        
+        $produk = $produkModel->where('nama_produk', urldecode($nama))->first();
+
+        if (!$produk) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'produk' => $produk
+        ];
+        
+        $data = array_merge($this->viewData ?? [], $data);
+
+        return view('product_detail', $data);
     }
 }

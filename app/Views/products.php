@@ -32,17 +32,19 @@
         
         <?php foreach ($produk_jasa as $p): ?>
         <div class="flex flex-col items-center text-center group">
-            <div class="relative w-full mb-6 overflow-hidden bg-surface-container-low aspect-[1.15]">
+            <a href="<?= base_url('products/detail/' . urlencode($p->nama_produk)) ?>" class="relative w-full mb-6 overflow-hidden bg-surface-container-low aspect-[1.15] block">
                 <?php if($p->discount): ?>
                 <div class="absolute top-4 left-4 z-10 bg-black text-white text-[10px] font-bold px-2 py-1 uppercase"><?= esc($p->discount) ?></div>
                 <?php endif; ?>
                 
                 <img alt="<?= esc($p->nama_produk) ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="<?= base_url('images/' . esc($p->gambar_produk)) ?>"/>
             
-            </div>
-            <h3 class="text-headline-sm font-headline-sm mb-3 leading-tight text-[22px] px-2 hover:text-primary transition-colors cursor-pointer line-clamp-2" title="<?= esc($p->nama_produk) ?>">
-                <?= esc($p->nama_produk) ?>
-            </h3>
+            </a>
+            <a href="<?= base_url('products/detail/' . urlencode($p->nama_produk)) ?>" class="block">
+                <h3 class="text-headline-sm font-headline-sm mb-3 leading-tight text-[22px] px-2 hover:text-primary transition-colors cursor-pointer line-clamp-2" title="<?= esc($p->nama_produk) ?>">
+                    <?= esc($p->nama_produk) ?>
+                </h3>
+            </a>
             
             <?php if($p->harga_normal): ?>
             <div class="flex items-center gap-2 mb-4">
@@ -76,16 +78,7 @@
         
     </div>
     
-    <div class="mt-24 flex justify-center items-center gap-3">
-        <span class="w-10 h-10 flex items-center justify-center bg-[#7d7465] text-white rounded-sm font-label-md text-sm cursor-default">1</span>
-        <a class="w-10 h-10 flex items-center justify-center border border-outline-variant text-secondary hover:border-primary hover:text-primary transition-colors rounded-sm font-label-md text-sm" href="#">2</a>
-        <a class="w-10 h-10 flex items-center justify-center border border-outline-variant text-secondary hover:border-primary hover:text-primary transition-colors rounded-sm font-label-md text-sm" href="#">3</a>
-        <a class="w-10 h-10 flex items-center justify-center border border-outline-variant text-secondary hover:border-primary hover:text-primary transition-colors rounded-sm font-label-md text-sm" href="#">4</a>
-        <a class="w-10 h-10 flex items-center justify-center border border-outline-variant text-secondary hover:border-primary hover:text-primary transition-colors rounded-sm font-label-md text-sm" href="#">5</a>
-        <a class="px-5 h-10 flex items-center justify-center border border-outline-variant text-secondary hover:border-primary hover:text-primary transition-colors rounded-sm font-label-md text-[11px] uppercase tracking-widest gap-1" href="#">
-            Next <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-        </a>
-    </div>
+    <?= $pager->links('produk', 'products_pagination') ?>
 </main>
 
 <?= $this->endSection() ?>

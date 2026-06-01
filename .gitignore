@@ -65,6 +65,9 @@ Vagrantfile
 
 php_errors.log
 
+check_db2.php
+check_db.php
+akademikpro_db.sql
 #-------------------------
 # User Guide Temp Files
 #-------------------------
