@@ -14,11 +14,13 @@
     
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
-<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<body class="bg-background text-on-background font-body-md overflow-x-hidden min-h-screen flex flex-col">
 
     <?= $this->include('layout/navbar') ?>
 
-    <?= $this->renderSection('content') ?>
+    <div class="flex-grow flex flex-col">
+        <?= $this->renderSection('content') ?>
+    </div>
 
     <?= $this->include('layout/footer') ?>
 

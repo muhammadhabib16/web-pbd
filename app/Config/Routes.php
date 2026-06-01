@@ -10,6 +10,7 @@ $routes->get('products', 'Products::index');
 $routes->get('about', 'About::index');
 
 $routes->get('blog', 'Blog::index');
+$routes->get('blog/detail/(:any)', 'Blog::detail/$1');
 
 $routes->get('contact', 'Contact::index');
 

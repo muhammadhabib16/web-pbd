@@ -3,17 +3,17 @@
     <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
         <!-- Social Icons -->
         <div class="flex items-center gap-4">
-            <a href="#" class="w-5 h-5 rounded-full bg-[#222] flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                <span class="text-[10px] font-bold">f</span>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="text-[14px] font-bold">f</span>
             </a>
-            <a href="#" class="w-5 h-5 rounded-full bg-[#222] flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                <span class="text-[9px] font-bold">𝕏</span>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="text-[13px] font-bold">𝕏</span>
             </a>
-            <a href="#" class="w-5 h-5 rounded-full bg-[#222] flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                <span class="material-symbols-outlined text-[12px]">photo_camera</span>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-[16px]">photo_camera</span>
             </a>
-            <a href="#" class="w-5 h-5 rounded-full bg-[#222] flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                <span class="material-symbols-outlined text-[12px]">play_arrow</span>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-[16px]">play_arrow</span>
             </a>
         </div>
         
