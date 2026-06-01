@@ -21,9 +21,37 @@
                 <span class="material-symbols-outlined text-[24px]">search</span>
             </button>
             
-            <button class="hover:text-[#A68A64] transition-colors flex items-center">
+            <?php if(session()->get('isLoggedIn')): ?>
+            <div class="relative group py-2">
+                <button class="hover:text-[#A68A64] transition-colors flex items-center cursor-pointer">
+                    <span class="material-symbols-outlined text-[24px]">person</span>
+                </button>
+                
+                <!-- Profile Dropdown -->
+                <div class="absolute right-0 top-full w-[260px] bg-white border border-gray-100 shadow-[0_4px_15px_-3px_rgba(0,0,0,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 -mt-1">
+                    <div class="p-5 flex items-center gap-4 border-b border-gray-100">
+                        <div class="w-[45px] h-[45px] bg-[#d1d5db] rounded-full flex items-center justify-center text-white flex-shrink-0">
+                            <span class="material-symbols-outlined text-[28px]">person</span>
+                        </div>
+                        <div class="flex flex-col overflow-hidden">
+                            <?php 
+                                $email = session()->get('email_pengguna');
+                                $name = explode('@', $email)[0];
+                            ?>
+                            <span class="text-[14px] font-bold text-[#333333] leading-snug truncate"><?= esc($name) ?></span>
+                            <span class="text-[12.5px] text-[#555555] truncate"><?= esc($email) ?></span>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <a href="<?= base_url('auth/logout') ?>" class="block px-4 py-2.5 text-[14px] text-[#555555] hover:text-[#333333] hover:bg-[#f9f9f9] transition-colors">Log Out</a>
+                    </div>
+                </div>
+            </div>
+            <?php else: ?>
+            <button class="trigger-login hover:text-[#A68A64] transition-colors flex items-center">
                 <span class="material-symbols-outlined text-[24px]">person</span>
             </button>
+            <?php endif; ?>
             
             <a href="<?= base_url('cart') ?>" class="relative hover:text-[#A68A64] transition-colors flex items-center">
                 <span class="material-symbols-outlined text-[24px]">shopping_bag</span>
