@@ -51,7 +51,6 @@ class Cart extends BaseController
 
         $session->set('cart', $cart);
         
-        // 🌟 UBAH: dari 'success' menjadi 'cart_success'
         return redirect()->to('/cart')->with('cart_success', 'Produk berhasil ditambahkan ke keranjang!');
     }
 
