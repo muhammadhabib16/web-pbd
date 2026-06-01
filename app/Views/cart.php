@@ -89,9 +89,9 @@
                         <span class="font-bold text-[#B49E78] text-[15px]">Rp<?= number_format($total, 0, ',', '.') ?></span>
                     </div>
 
-                    <button class="w-full bg-[#B49E78] text-white h-[45px] text-[13px] font-bold hover:bg-[#a38f6c] transition-colors shadow-sm">
+                    <a href="<?= base_url('cart/checkout') ?>" class="w-full flex items-center justify-center bg-[#B49E78] text-white h-[45px] text-[13px] font-bold hover:bg-[#a38f6c] transition-colors shadow-sm">
                         Proceed to checkout
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

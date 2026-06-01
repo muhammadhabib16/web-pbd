@@ -67,4 +67,118 @@ class Cart extends BaseController
 
         return redirect()->to('/cart')->with('cart_success', 'Produk berhasil dihapus dari keranjang.');
     }
+
+    public function checkout()
+    {
+        $session = session();
+        $cart = $session->get('cart') ?? [];
+        
+        if (empty($cart)) {
+            return redirect()->to('/cart');
+        }
+
+        $total = 0;
+        foreach($cart as $item) {
+            $total += ($item['price'] * $item['qty']);
+        }
+
+        $data = [
+            'cart'  => $cart,
+            'total' => $total
+        ];
+
+        return view('checkout', $data);
+    }
+
+    public function processCheckout()
+    {
+        $session = session();
+        $cart = $session->get('cart') ?? [];
+        
+        if (empty($cart)) {
+            return redirect()->to('/cart');
+        }
+
+        $post = $this->request->getPost();
+        $emailPengguna = $session->get('email_pengguna');
+        
+        if ($emailPengguna) {
+            // Update data pengguna (billing address)
+            $penggunaModel = new \App\Models\PenggunaModel();
+            $penggunaModel->update($emailPengguna, [
+                'nama_depan'    => $post['first_name'] ?? '',
+                'nama_belakang' => $post['last_name'] ?? '',
+                'company'       => $post['company'] ?? '',
+                'country'       => $post['country'] ?? '',
+                'jalan'         => $post['address_1'] ?? '',
+                'detail_alamat' => $post['address_2'] ?? '',
+                'kota'          => $post['city'] ?? '',
+                'provinsi'      => $post['province'] ?? '',
+                'kode_pos'      => $post['postcode'] ?? '',
+                'no_telp'       => $post['phone'] ?? '',
+            ]);
+        }
+
+        $total = 0;
+        foreach($cart as $item) {
+            $total += ($item['price'] * $item['qty']);
+        }
+
+        $orderNumber = mt_rand(1000, 9999);
+        $paymentMethod = 'Direct bank transfer'; // Default from design
+        
+        // Simpan ke pesanan
+        $pesananModel = new \App\Models\PesananModel();
+        $pesananModel->insert([
+            'nomor_order'       => $orderNumber,
+            'email_pengguna'    => $emailPengguna,
+            'tanggal_pembelian' => date('Y-m-d H:i:s'),
+            'metode_pembayaran' => $paymentMethod,
+            'subtotal'          => $total,
+            'coupon'            => '',
+            'total'             => $total,
+            'catatan'           => $post['order_notes'] ?? '',
+            'no_rek_penerima'   => null 
+        ]);
+
+        // Simpan ke detail_pesanan
+        $detailModel = new \App\Models\DetailPesananModel();
+        foreach($cart as $item) {
+            $detailModel->insert([
+                'nomor_order' => $orderNumber,
+                'nama_produk' => $item['name'],
+                'jumlah'      => $item['qty']
+            ]);
+        }
+
+        // Simulate order creation for the view
+        $orderData = [
+            'order_number'   => $orderNumber,
+            'date'           => date('F j, Y'),
+            'total'          => $total,
+            'payment_method' => $paymentMethod,
+            'billing'        => $post,
+            'items'          => $cart
+        ];
+
+        // Store in flashdata
+        $session->setFlashdata('order_data', $orderData);
+
+        // Empty cart
+        $session->remove('cart');
+
+        return redirect()->to('/checkout/received');
+    }
+
+    public function orderReceived()
+    {
+        $session = session();
+        $orderData = $session->getFlashdata('order_data');
+
+        if (!$orderData) {
+            return redirect()->to('/');
+        }
+
+        return view('order_received', ['order' => $orderData]);
+    }
 }
