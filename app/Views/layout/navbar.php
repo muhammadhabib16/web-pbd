@@ -23,9 +23,9 @@
             
             <?php if(session()->get('isLoggedIn')): ?>
             <div class="relative group py-2">
-                <button class="hover:text-[#A68A64] transition-colors flex items-center cursor-pointer">
+                <a href="<?= base_url('my-account') ?>" class="hover:text-[#A68A64] transition-colors flex items-center cursor-pointer">
                     <span class="material-symbols-outlined text-[24px]">person</span>
-                </button>
+                </a>
                 
                 <!-- Profile Dropdown -->
                 <div class="absolute right-0 top-full w-[260px] bg-white border border-gray-100 shadow-[0_4px_15px_-3px_rgba(0,0,0,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 -mt-1">

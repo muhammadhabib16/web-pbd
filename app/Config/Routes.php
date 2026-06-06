@@ -31,3 +31,12 @@ $routes->post('checkout/process', 'Cart::processCheckout');
 $routes->get('checkout/received', 'Cart::orderReceived');
 
 $routes->get('products/searchAjax', 'Products::searchAjax');
+
+$routes->get('my-account', 'MyAccount::index');
+$routes->get('my-account/orders', 'MyAccount::orders');
+$routes->get('my-account/downloads', 'MyAccount::downloads');
+$routes->get('my-account/addresses', 'MyAccount::addresses');
+$routes->get('my-account/edit-address/(:segment)', 'MyAccount::editAddress/$1');
+$routes->post('my-account/save-address/(:segment)', 'MyAccount::saveAddress/$1');
+$routes->get('my-account/details', 'MyAccount::details');
+$routes->post('my-account/update-details', 'MyAccount::updateDetails');
