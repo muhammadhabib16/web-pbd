@@ -38,12 +38,65 @@ class MyAccount extends BaseController
 
         $email = session()->get('email_pengguna');
         $pesananModel = new PesananModel();
+        $detailModel = new \App\Models\DetailPesananModel();
         
         $orders = $pesananModel->where('email_pengguna', $email)->orderBy('tanggal_pembelian', 'DESC')->findAll();
+
+        foreach ($orders as &$order) {
+            $details = $detailModel->where('nomor_order', $order['nomor_order'])->findAll();
+            $itemCount = 0;
+            foreach ($details as $d) {
+                $itemCount += $d['jumlah'];
+            }
+            $order['item_count'] = $itemCount;
+        }
 
         $data = [
             'tab' => 'orders',
             'orders' => $orders
+        ];
+
+        return view('my_account', $data);
+    }
+
+    public function viewOrder($orderId)
+    {
+        if (!$this->checkLogin()) return redirect()->to('/')->with('error', 'Silakan login terlebih dahulu.');
+
+        $email = session()->get('email_pengguna');
+        $pesananModel = new PesananModel();
+        $detailModel = new \App\Models\DetailPesananModel();
+        $produkModel = new \App\Models\ProdukModel();
+        
+        $order = $pesananModel->where('nomor_order', $orderId)->where('email_pengguna', $email)->first();
+
+        if (!$order) {
+            return redirect()->to('/my-account/orders')->with('error', 'Pesanan tidak ditemukan.');
+        }
+
+        $details = $detailModel->where('nomor_order', $orderId)->findAll();
+        
+        // Let's get the price from ProdukModel
+        foreach ($details as &$detail) {
+            $produk = $produkModel->where('nama_produk', $detail['nama_produk'])->first();
+            if ($produk) {
+                // Strip non-numeric characters (like 'Rp' and '.') before casting
+                $hargaStr = preg_replace('/[^0-9]/', '', $produk->harga_jual);
+                $detail['harga'] = (int)$hargaStr;
+            } else {
+                $detail['harga'] = 0;
+            }
+            $detail['subtotal'] = $detail['harga'] * $detail['jumlah'];
+        }
+
+        $penggunaModel = new PenggunaModel();
+        $user = $penggunaModel->find($email);
+
+        $data = [
+            'tab' => 'view_order',
+            'order' => $order,
+            'details' => $details,
+            'user' => $user
         ];
 
         return view('my_account', $data);
