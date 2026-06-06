@@ -93,22 +93,22 @@
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="border-b border-gray-200">
-                                        <th class="py-3 px-2 font-bold text-slate-900">Order</th>
-                                        <th class="py-3 px-2 font-bold text-slate-900">Date</th>
-                                        <th class="py-3 px-2 font-bold text-slate-900">Status</th>
-                                        <th class="py-3 px-2 font-bold text-slate-900">Total</th>
-                                        <th class="py-3 px-2 font-bold text-slate-900">Actions</th>
+                                        <th class="py-4 px-2 font-bold text-slate-900 w-[15%]">Order</th>
+                                        <th class="py-4 px-2 font-bold text-slate-900 w-[25%]">Date</th>
+                                        <th class="py-4 px-2 font-bold text-slate-900 w-[20%]">Status</th>
+                                        <th class="py-4 px-2 font-bold text-slate-900 w-[25%]">Total</th>
+                                        <th class="py-4 px-2 font-bold text-slate-900 w-[15%]">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($orders as $order): ?>
-                                    <tr class="border-b border-gray-100 text-[13px]">
-                                        <td class="py-4 px-2 font-medium text-[#A68A64]">#<?= esc($order['nomor_order']) ?></td>
-                                        <td class="py-4 px-2"><?= date('F j, Y', strtotime($order['tanggal_pembelian'])) ?></td>
-                                        <td class="py-4 px-2">Processing</td> <!-- Status hardcoded as processing for now since no status column -->
-                                        <td class="py-4 px-2">Rp<?= number_format($order['total'], 0, ',', '.') ?> for 1 item</td> <!-- item count could be dynamic -->
-                                        <td class="py-4 px-2">
-                                            <a href="#" class="bg-[#e8e8e8] text-slate-700 px-3 py-1.5 rounded-sm font-bold text-[12px] hover:bg-[#d5d5d5] transition-colors">View</a>
+                                    <tr class="border-b border-dotted border-gray-300 text-[13px]">
+                                        <td class="py-5 px-2 font-medium text-slate-700">#<?= esc($order['nomor_order']) ?></td>
+                                        <td class="py-5 px-2 text-slate-600"><?= date('F j, Y', strtotime($order['tanggal_pembelian'])) ?></td>
+                                        <td class="py-5 px-2 text-slate-600">On hold</td> <!-- Default text based on screenshot -->
+                                        <td class="py-5 px-2 text-slate-600">Rp<?= number_format($order['total'], 0, ',', '.') ?> for <?= $order['item_count'] ?> item<?= $order['item_count'] > 1 ? 's' : '' ?></td>
+                                        <td class="py-5 px-2">
+                                            <a href="<?= base_url('my-account/view-order/' . esc($order['nomor_order'])) ?>" class="inline-block text-center w-full bg-[#B49E78] text-white px-4 py-2 font-bold hover:bg-[#a38f6c] transition-colors rounded-sm shadow-sm">View</a>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -116,6 +116,81 @@
                             </table>
                         </div>
                     <?php endif; ?>
+
+                <?php elseif ($tab == 'view_order'): ?>
+                    <p class="mb-8 text-[14px]">
+                        Order #<mark class="bg-transparent font-medium text-slate-800"><?= esc($order['nomor_order']) ?></mark> was placed on <mark class="bg-transparent font-medium text-slate-800"><?= date('F j, Y', strtotime($order['tanggal_pembelian'])) ?></mark> and is currently <mark class="bg-transparent font-medium text-slate-800">On hold</mark>.
+                    </p>
+
+                    <div class="border border-gray-200 rounded-sm p-4 w-fit mb-8 bg-gray-50/50">
+                        <div class="flex items-center justify-between gap-4 mb-2">
+                            <h3 class="font-bold text-slate-800 text-[15px]">Table of Contents</h3>
+                            <span class="material-symbols-outlined text-gray-400 text-[18px]">list</span>
+                        </div>
+                        <ul class="text-[13px] text-slate-600 space-y-1">
+                            <li>1. <a href="#order-details" class="hover:text-[#A68A64] hover:underline transition-colors">Order details</a></li>
+                            <li>2. <a href="#billing-address" class="hover:text-[#A68A64] hover:underline transition-colors">Billing address</a></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="order-details" class="text-2xl font-bold text-slate-900 mb-4" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Order details</h2>
+                    
+                    <div class="mb-10">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-200">
+                                    <th class="py-3 font-bold text-slate-900 w-[70%]">Product</th>
+                                    <th class="py-3 font-bold text-slate-900 w-[30%]">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($details as $item): ?>
+                                <tr class="border-b border-dotted border-gray-300 text-[13px]">
+                                    <td class="py-4 text-slate-600 pr-4">
+                                        <a href="#" class="text-[#A68A64] hover:underline"><?= esc($item['nama_produk']) ?></a>
+                                        <strong class="text-slate-800 font-bold ml-1">× <?= esc($item['jumlah']) ?></strong>
+                                    </td>
+                                    <td class="py-4 text-slate-600">Rp<?= number_format($item['subtotal'], 0, ',', '.') ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                            <tfoot class="text-[13px] text-slate-600 font-medium">
+                                <tr class="border-b border-dotted border-gray-300">
+                                    <td class="py-4 font-bold text-slate-800">Subtotal:</td>
+                                    <td class="py-4">Rp<?= number_format($order['subtotal'], 0, ',', '.') ?></td>
+                                </tr>
+                                <tr class="border-b border-dotted border-gray-300">
+                                    <td class="py-4 font-bold text-slate-800">Payment method:</td>
+                                    <td class="py-4"><?= esc(ucwords(str_replace('_', ' ', $order['metode_pembayaran']))) ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 font-bold text-slate-800">Total:</td>
+                                    <td class="py-4 text-slate-800 font-bold">Rp<?= number_format($order['total'], 0, ',', '.') ?></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <h2 id="billing-address" class="text-2xl font-bold text-slate-900 mb-6" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Billing address</h2>
+                    
+                    <div class="border border-gray-100 p-6 rounded-sm max-w-sm">
+                        <?php if(!empty($user['jalan']) || !empty($user['kota'])): ?>
+                            <address class="not-italic text-[13px] leading-relaxed text-gray-600">
+                                <?php if(!empty($user['nama_depan'])): ?><?= esc($user['nama_depan'] . ' ' . $user['nama_belakang']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['company'])): ?><?= esc($user['company']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['jalan'])): ?><?= esc($user['jalan']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['detail_alamat'])): ?><?= esc($user['detail_alamat']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['kota'])): ?><?= esc($user['kota']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['provinsi'])): ?><?= esc($user['provinsi']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['kode_pos'])): ?><?= esc($user['kode_pos']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['country'])): ?><?= esc($user['country']) ?><br><?php endif; ?>
+                                <?php if(!empty($user['no_telp'])): ?><br><?= esc($user['no_telp']) ?><br><?php endif; ?>
+                                <br><?= esc($user['email_pengguna']) ?>
+                            </address>
+                        <?php else: ?>
+                            <p class="text-[13px] italic text-gray-500">Billing address not set.</p>
+                        <?php endif; ?>
+                    </div>
 
                 <?php elseif ($tab == 'downloads'): ?>
                     <div class="bg-[#F8F9FA] border-t-2 border-[#A68A64] p-4 flex justify-between items-center text-[13px]">
