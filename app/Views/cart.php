@@ -64,12 +64,21 @@
                 <?php endforeach; ?>
 
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8">
+                    
                     <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <input type="text" placeholder="Coupon code" class="w-full sm:w-[180px] h-[40px] px-4 border border-gray-200 text-[13px] outline-none focus:border-gray-400 transition-colors">
-                        <button type="button" onclick="alert('Fitur kupon saat ini belum tersedia.')" class="bg-[#B49E78] text-white px-6 h-[40px] text-[13px] font-bold hover:bg-[#a38f6c] transition-colors whitespace-nowrap">
-                            Apply coupon
-                        </button>
+                        <input type="text" name="coupon_code" value="<?= esc($applied_coupon ?? '') ?>" placeholder="Coupon code" <?= !empty($applied_coupon) ? 'readonly' : '' ?> class="w-full sm:w-[180px] h-[40px] px-4 border <?= !empty($applied_coupon) ? 'border-green-400 bg-green-50' : 'border-gray-200' ?> text-[13px] outline-none focus:border-gray-400 transition-colors uppercase">
+                        
+                        <?php if(!empty($applied_coupon)): ?>
+                            <button type="submit" formaction="<?= base_url('cart/remove_coupon') ?>" class="bg-red-500 text-white px-6 h-[40px] text-[13px] font-bold hover:bg-red-600 transition-colors whitespace-nowrap shadow-sm">
+                                Remove
+                            </button>
+                        <?php else: ?>
+                            <button type="submit" formaction="<?= base_url('cart/apply_coupon') ?>" class="bg-[#B49E78] text-white px-6 h-[40px] text-[13px] font-bold hover:bg-[#a38f6c] transition-colors whitespace-nowrap shadow-sm">
+                                Apply coupon
+                            </button>
+                        <?php endif; ?>
                     </div>
+                    
                     <button type="submit" class="w-full sm:w-auto bg-[#e8e8e8] text-slate-500 px-6 h-[40px] text-[13px] font-bold hover:bg-[#d5d5d5] hover:text-slate-900 transition-colors whitespace-nowrap">
                         Update cart
                     </button>
@@ -83,12 +92,19 @@
                     
                     <div class="flex justify-between items-center py-4 border-b border-gray-200 border-dotted text-[13px]">
                         <span class="font-bold text-slate-900">Subtotal</span>
-                        <span class="text-slate-600">Rp<?= number_format($total, 0, ',', '.') ?></span>
+                        <span class="text-slate-600">Rp<?= number_format($subtotal ?? 0, 0, ',', '.') ?></span>
                     </div>
+
+                    <?php if(isset($discount) && $discount > 0): ?>
+                    <div class="flex justify-between items-center py-4 border-b border-gray-200 border-dotted text-[13px] text-green-600">
+                        <span class="font-bold">Discount (<?= esc($applied_coupon) ?>)</span>
+                        <span class="font-semibold">-Rp<?= number_format($discount, 0, ',', '.') ?></span>
+                    </div>
+                    <?php endif; ?>
                     
                     <div class="flex justify-between items-center py-4 text-[13px] mb-6">
                         <span class="font-bold text-slate-900">Total</span>
-                        <span class="font-bold text-[#B49E78] text-[15px]">Rp<?= number_format($total, 0, ',', '.') ?></span>
+                        <span class="font-bold text-[#B49E78] text-[15px]">Rp<?= number_format($total ?? 0, 0, ',', '.') ?></span>
                     </div>
 
                     <a href="<?= base_url('cart/checkout') ?>" class="w-full flex items-center justify-center bg-[#B49E78] text-white h-[45px] text-[13px] font-bold hover:bg-[#a38f6c] transition-colors shadow-sm">
@@ -102,6 +118,7 @@
 
     </div>
 </main>
+
 <?php if(session()->getFlashdata('coupon_error')): ?>
     <script>alert("<?= session()->getFlashdata('coupon_error') ?>");</script>
 <?php endif; ?>
@@ -109,4 +126,5 @@
 <?php if(session()->getFlashdata('coupon_success')): ?>
     <script>alert("<?= session()->getFlashdata('coupon_success') ?>");</script>
 <?php endif; ?>
+
 <?= $this->endSection() ?>
