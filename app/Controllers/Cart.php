@@ -2,41 +2,28 @@
 
 namespace App\Controllers;
 
-use App\Models\KeranjangModel;
-use App\Models\PenggunaModel;
-use App\Models\PesananModel;
-use App\Models\DetailPesananModel;
-
 class Cart extends BaseController
 {
     public function index()
     {
         $session = session();
+        $cart = $session->get('cart') ?? [];
         
-        if (!$session->get('isLoggedIn')) {
-            return view('cart', ['cart' => [], 'total' => 0]);
+        $subtotal = 0;
+        foreach($cart as $item) {
+            $subtotal += ($item['price'] * $item['qty']);
         }
 
-        $emailPengguna = $session->get('email_pengguna');
-        $keranjangModel = new KeranjangModel();
-        
-        $cartItems = $keranjangModel->where('email_pengguna', $emailPengguna)->findAll();
-        
-        $total = 0;
-        $cart = [];
-        foreach($cartItems as $item) {
-            $total += ($item['harga'] * $item['qty']);
-            $cart[$item['id']] = [
-                'name'  => $item['nama_produk'],
-                'price' => $item['harga'],
-                'qty'   => $item['qty'],
-                'image' => $item['gambar_produk']
-            ];
-        }
+        $discount = $session->get('discount_amount') ?? 0;
+        $applied_coupon = $session->get('applied_coupon') ?? '';
+        $total = max(0, $subtotal - $discount);
 
         $data = [
-            'cart'  => $cart,
-            'total' => $total
+            'cart'           => $cart,
+            'subtotal'       => $subtotal,
+            'discount'       => $discount,
+            'total'          => $total,
+            'applied_coupon' => $applied_coupon
         ];
 
         return view('cart', $data);
@@ -50,33 +37,25 @@ class Cart extends BaseController
             return redirect()->back()->with('error', 'Silakan login terlebih dahulu.');
         }
 
+        $id    = $this->request->getPost('id'); 
         $name  = $this->request->getPost('name');
         $price = $this->request->getPost('price');
         $image = $this->request->getPost('image');
-        $emailPengguna = $session->get('email_pengguna');
 
-        $keranjangModel = new KeranjangModel();
+        $cart = $session->get('cart') ?? [];
 
-        // Check if product already exists in user's cart
-        $existingItem = $keranjangModel->where('email_pengguna', $emailPengguna)
-                                       ->where('nama_produk', $name)
-                                       ->first();
-
-        if ($existingItem) {
-            // Update qty
-            $keranjangModel->update($existingItem['id'], [
-                'qty' => $existingItem['qty'] + 1
-            ]);
+        if (array_key_exists($id, $cart)) {
+            $cart[$id]['qty'] += 1;
         } else {
-            // Insert new
-            $keranjangModel->insert([
-                'email_pengguna' => $emailPengguna,
-                'nama_produk'    => $name,
-                'qty'            => 1,
-                'harga'          => $price,
-                'gambar_produk'  => $image
-            ]);
+            $cart[$id] = [
+                'name'  => $name,
+                'price' => $price,
+                'qty'   => 1,
+                'image' => $image
+            ];
         }
+
+        $session->set('cart', $cart);
         
         return redirect()->to('/cart')->with('cart_success', 'Produk berhasil ditambahkan ke keranjang!');
     }
@@ -84,19 +63,15 @@ class Cart extends BaseController
     public function remove($id)
     {
         $session = session();
-        
-        if (!$session->get('isLoggedIn')) {
-            return redirect()->to('/');
+        $cart = $session->get('cart') ?? [];
+
+        if (array_key_exists($id, $cart)) {
+            unset($cart[$id]);
+            $session->set('cart', $cart);
         }
 
-        $keranjangModel = new KeranjangModel();
-        
-        // Ensure user can only delete their own cart items
-        $emailPengguna = $session->get('email_pengguna');
-        $item = $keranjangModel->find($id);
-
-        if ($item && $item['email_pengguna'] === $emailPengguna) {
-            $keranjangModel->delete($id);
+        if (empty($session->get('cart'))) {
+            $session->remove(['applied_coupon', 'discount_amount']);
         }
 
         return redirect()->to('/cart')->with('cart_success', 'Produk berhasil dihapus dari keranjang.');
@@ -105,63 +80,83 @@ class Cart extends BaseController
     public function update()
     {
         $session = session();
-        
-        if (!$session->get('isLoggedIn')) {
-            return redirect()->to('/');
-        }
-
-        $keranjangModel = new KeranjangModel();
-        $emailPengguna = $session->get('email_pengguna');
+        $cart = $session->get('cart') ?? [];
         $qtys = $this->request->getPost('qty');
 
         if ($qtys && is_array($qtys)) {
             foreach ($qtys as $id => $qty) {
-                $item = $keranjangModel->find($id);
-                if ($item && $item['email_pengguna'] === $emailPengguna) {
+                if (isset($cart[$id])) {
                     $qty = (int)$qty;
                     if ($qty > 0) {
-                        $keranjangModel->update($id, ['qty' => $qty]);
+                        $cart[$id]['qty'] = $qty;
                     } else {
-                        $keranjangModel->delete($id);
+                        unset($cart[$id]);
                     }
                 }
             }
+            $session->set('cart', $cart);
+        }
+        
+        if (empty($cart)) {
+            $session->remove(['applied_coupon', 'discount_amount']);
         }
 
         return redirect()->to('/cart')->with('cart_success', 'Keranjang berhasil diperbarui!');
     }
 
+    // 🌟 FUNGSI BARU: Menerapkan Kupon
+    public function applyCoupon()
+    {
+        $session = session();
+        $code = trim($this->request->getPost('coupon_code'));
+
+        // Logika Sistem Internal (Tanpa Cek Database)
+        if (strtoupper($code) === 'PROMO10K') {
+            $session->set([
+                'applied_coupon'  => 'PROMO10K',
+                'discount_amount' => 10000 // Total dipotong Rp10.000
+            ]);
+            $session->setFlashdata('coupon_success', 'Kupon berhasil digunakan!');
+        } else {
+            // Jika salah, kirim pesan error spesifik
+            $session->setFlashdata('coupon_error', 'Kupon tidak ditemukan.');
+        }
+        return redirect()->to('/cart');
+    }
+
+    // 🌟 FUNGSI BARU: Menghapus Kupon
+    public function removeCoupon()
+    {
+        $session = session();
+        $session->remove(['applied_coupon', 'discount_amount']);
+        $session->setFlashdata('coupon_success', 'Kupon berhasil dilepas.');
+        return redirect()->to('/cart');
+    }
+
     public function checkout()
     {
         $session = session();
+        $cart = $session->get('cart') ?? [];
         
-        if (!$session->get('isLoggedIn')) {
+        if (empty($cart)) {
             return redirect()->to('/cart');
         }
 
-        $emailPengguna = $session->get('email_pengguna');
-        $keranjangModel = new KeranjangModel();
-        $cartItems = $keranjangModel->where('email_pengguna', $emailPengguna)->findAll();
-        
-        if (empty($cartItems)) {
-            return redirect()->to('/cart');
+        $subtotal = 0;
+        foreach($cart as $item) {
+            $subtotal += ($item['price'] * $item['qty']);
         }
 
-        $total = 0;
-        $cart = [];
-        foreach($cartItems as $item) {
-            $total += ($item['harga'] * $item['qty']);
-            $cart[$item['id']] = [
-                'name'  => $item['nama_produk'],
-                'price' => $item['harga'],
-                'qty'   => $item['qty'],
-                'image' => $item['gambar_produk']
-            ];
-        }
+        $discount = $session->get('discount_amount') ?? 0;
+        $applied_coupon = $session->get('applied_coupon') ?? '';
+        $total = max(0, $subtotal - $discount);
 
         $data = [
-            'cart'  => $cart,
-            'total' => $total
+            'cart'           => $cart,
+            'subtotal'       => $subtotal,
+            'discount'       => $discount,
+            'total'          => $total,
+            'applied_coupon' => $applied_coupon
         ];
 
         return view('checkout', $data);
@@ -170,60 +165,51 @@ class Cart extends BaseController
     public function processCheckout()
     {
         $session = session();
+        $cart = $session->get('cart') ?? [];
         
-        if (!$session->get('isLoggedIn')) {
-            return redirect()->to('/');
-        }
-
-        $emailPengguna = $session->get('email_pengguna');
-        $keranjangModel = new KeranjangModel();
-        $cartItems = $keranjangModel->where('email_pengguna', $emailPengguna)->findAll();
-        
-        if (empty($cartItems)) {
+        if (empty($cart)) {
             return redirect()->to('/cart');
         }
 
         $post = $this->request->getPost();
+        $emailPengguna = $session->get('email_pengguna');
         
-        // Update data pengguna (billing address)
-        $penggunaModel = new PenggunaModel();
-        $penggunaModel->update($emailPengguna, [
-            'nama_depan'    => $post['first_name'] ?? '',
-            'nama_belakang' => $post['last_name'] ?? '',
-            'company'       => $post['company'] ?? '',
-            'country'       => $post['country'] ?? '',
-            'jalan'         => $post['address_1'] ?? '',
-            'detail_alamat' => $post['address_2'] ?? '',
-            'kota'          => $post['city'] ?? '',
-            'provinsi'      => $post['province'] ?? '',
-            'kode_pos'      => $post['postcode'] ?? '',
-            'no_telp'       => $post['phone'] ?? '',
-        ]);
-
-        $total = 0;
-        $cart = [];
-        foreach($cartItems as $item) {
-            $total += ($item['harga'] * $item['qty']);
-            $cart[$item['id']] = [
-                'name'  => $item['nama_produk'],
-                'price' => $item['harga'],
-                'qty'   => $item['qty'],
-                'image' => $item['gambar_produk']
-            ];
+        if ($emailPengguna) {
+            $penggunaModel = new \App\Models\PenggunaModel();
+            $penggunaModel->update($emailPengguna, [
+                'nama_depan'    => $post['first_name'] ?? '',
+                'nama_belakang' => $post['last_name'] ?? '',
+                'company'       => $post['company'] ?? '',
+                'country'       => $post['country'] ?? '',
+                'jalan'         => $post['address_1'] ?? '',
+                'detail_alamat' => $post['address_2'] ?? '',
+                'kota'          => $post['city'] ?? '',
+                'provinsi'      => $post['province'] ?? '',
+                'kode_pos'      => $post['postcode'] ?? '',
+                'no_telp'       => $post['phone'] ?? '',
+            ]);
         }
 
+        $subtotal = 0;
+        foreach($cart as $item) {
+            $subtotal += ($item['price'] * $item['qty']);
+        }
+
+        $discount = $session->get('discount_amount') ?? 0;
+        $total = max(0, $subtotal - $discount);
+
         $orderNumber = mt_rand(1000, 9999);
-        $paymentMethod = 'Direct bank transfer'; // Default from design
+        $paymentMethod = 'Direct bank transfer'; 
         
         // Simpan ke pesanan
-        $pesananModel = new PesananModel();
+        $pesananModel = new \App\Models\PesananModel();
         $pesananModel->insert([
             'nomor_order'       => $orderNumber,
             'email_pengguna'    => $emailPengguna,
             'tanggal_pembelian' => date('Y-m-d H:i:s'),
             'metode_pembayaran' => $paymentMethod,
-            'subtotal'          => $total,
-            'coupon'            => '',
+            'subtotal'          => $subtotal,
+            'coupon'            => '', // 🌟 KOSONGKAN SEMENTARA: Tidak masuk ke database
             'total'             => $total,
             'catatan'           => $post['order_notes'] ?? '',
             'no_rek_penerima'   => null,
@@ -239,17 +225,15 @@ class Cart extends BaseController
             'no_telp'           => $post['phone'] ?? ''
         ]);
 
-        // Simpan ke detail_pesanan
-        $detailModel = new DetailPesananModel();
-        foreach($cartItems as $item) {
+        $detailModel = new \App\Models\DetailPesananModel();
+        foreach($cart as $item) {
             $detailModel->insert([
                 'nomor_order' => $orderNumber,
-                'nama_produk' => $item['nama_produk'],
+                'nama_produk' => $item['name'],
                 'jumlah'      => $item['qty']
             ]);
         }
 
-        // Simulate order creation for the view
         $orderData = [
             'order_number'   => $orderNumber,
             'date'           => date('F j, Y'),
@@ -259,11 +243,8 @@ class Cart extends BaseController
             'items'          => $cart
         ];
 
-        // Store in flashdata
         $session->setFlashdata('order_data', $orderData);
-
-        // Empty cart in database
-        $keranjangModel->where('email_pengguna', $emailPengguna)->delete();
+        $session->remove(['cart', 'applied_coupon', 'discount_amount']);
 
         return redirect()->to('/checkout/received');
     }
