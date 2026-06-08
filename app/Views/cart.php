@@ -102,5 +102,11 @@
 
     </div>
 </main>
+<?php if(session()->getFlashdata('coupon_error')): ?>
+    <script>alert("<?= session()->getFlashdata('coupon_error') ?>");</script>
+<?php endif; ?>
 
+<?php if(session()->getFlashdata('coupon_success')): ?>
+    <script>alert("<?= session()->getFlashdata('coupon_success') ?>");</script>
+<?php endif; ?>
 <?= $this->endSection() ?>

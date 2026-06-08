@@ -41,3 +41,6 @@ $routes->get('my-account/edit-address/(:segment)', 'MyAccount::editAddress/$1');
 $routes->post('my-account/save-address/(:segment)', 'MyAccount::saveAddress/$1');
 $routes->get('my-account/details', 'MyAccount::details');
 $routes->post('my-account/update-details', 'MyAccount::updateDetails');
+
+$routes->post('cart/apply_coupon', 'Cart::applyCoupon');
+$routes->post('cart/remove_coupon', 'Cart::removeCoupon');
