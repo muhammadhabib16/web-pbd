@@ -56,7 +56,17 @@
             <a href="<?= base_url('cart') ?>" class="relative hover:text-[#A68A64] transition-colors flex items-center">
                 <span class="material-symbols-outlined text-[24px]">shopping_bag</span>
                 
-                <?php $cartCount = count(session()->get('cart') ?? []); ?>
+                <?php 
+                    $cartCount = 0;
+                    if (session()->get('isLoggedIn')) {
+                        $detailCartModel = new \App\Models\DetailCartModel();
+                        $cartModel = new \App\Models\CartModel();
+                        $cart = $cartModel->where('email_pengguna', session()->get('email_pengguna'))->first();
+                        if ($cart) {
+                            $cartCount = $detailCartModel->where('id_cart', $cart['id_cart'])->countAllResults();
+                        }
+                    }
+                ?>
                 <?php if($cartCount > 0): ?>
                     <span class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-sm">
                         <?= $cartCount ?>
