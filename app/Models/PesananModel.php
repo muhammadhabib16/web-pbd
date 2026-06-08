@@ -14,6 +14,9 @@ class PesananModel extends Model
     protected $allowedFields    = [
         'nomor_order', 'email_pengguna', 'tanggal_pembelian', 
         'metode_pembayaran', 'subtotal', 'coupon', 'total', 
-        'catatan', 'no_rek_penerima'
+        'catatan', 'no_rek_penerima',
+        'nama_depan', 'nama_belakang', 'company', 'jalan', 
+        'detail_alamat', 'kota', 'provinsi', 'kode_pos', 
+        'country', 'no_telp'
     ];
 }

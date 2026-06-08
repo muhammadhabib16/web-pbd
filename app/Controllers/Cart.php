@@ -226,7 +226,17 @@ class Cart extends BaseController
             'coupon'            => '',
             'total'             => $total,
             'catatan'           => $post['order_notes'] ?? '',
-            'no_rek_penerima'   => null 
+            'no_rek_penerima'   => null,
+            'nama_depan'        => $post['first_name'] ?? '',
+            'nama_belakang'     => $post['last_name'] ?? '',
+            'company'           => $post['company'] ?? '',
+            'jalan'             => $post['address_1'] ?? '',
+            'detail_alamat'     => $post['address_2'] ?? '',
+            'kota'              => $post['city'] ?? '',
+            'provinsi'          => $post['province'] ?? '',
+            'kode_pos'          => $post['postcode'] ?? '',
+            'country'           => $post['country'] ?? '',
+            'no_telp'           => $post['phone'] ?? ''
         ]);
 
         // Simpan ke detail_pesanan
