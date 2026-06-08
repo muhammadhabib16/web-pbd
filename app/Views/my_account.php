@@ -174,21 +174,21 @@
                     <h2 id="billing-address" class="text-2xl font-bold text-slate-900 mb-6" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Billing address</h2>
                     
                     <div class="border border-gray-100 p-6 rounded-sm max-w-sm">
-                        <?php if(!empty($user['jalan']) || !empty($user['kota'])): ?>
+                        <?php if(!empty($order['jalan']) || !empty($order['kota'])): ?>
                             <address class="not-italic text-[13px] leading-relaxed text-gray-600">
-                                <?php if(!empty($user['nama_depan'])): ?><?= esc($user['nama_depan'] . ' ' . $user['nama_belakang']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['company'])): ?><?= esc($user['company']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['jalan'])): ?><?= esc($user['jalan']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['detail_alamat'])): ?><?= esc($user['detail_alamat']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['kota'])): ?><?= esc($user['kota']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['provinsi'])): ?><?= esc($user['provinsi']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['kode_pos'])): ?><?= esc($user['kode_pos']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['country'])): ?><?= esc($user['country']) ?><br><?php endif; ?>
-                                <?php if(!empty($user['no_telp'])): ?><br><?= esc($user['no_telp']) ?><br><?php endif; ?>
-                                <br><?= esc($user['email_pengguna']) ?>
+                                <?php if(!empty($order['nama_depan'])): ?><?= esc($order['nama_depan'] . ' ' . $order['nama_belakang']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['company'])): ?><?= esc($order['company']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['jalan'])): ?><?= esc($order['jalan']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['detail_alamat'])): ?><?= esc($order['detail_alamat']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['kota'])): ?><?= esc($order['kota']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['provinsi'])): ?><?= esc($order['provinsi']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['kode_pos'])): ?><?= esc($order['kode_pos']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['country'])): ?><?= esc($order['country']) ?><br><?php endif; ?>
+                                <?php if(!empty($order['no_telp'])): ?><?= esc($order['no_telp']) ?><br><?php endif; ?>
+                                <br><?= esc($order['email_pengguna']) ?>
                             </address>
                         <?php else: ?>
-                            <p class="text-[13px] italic text-gray-500">Billing address not set.</p>
+                            <p class="text-[13px] italic text-gray-500">Billing address not set or recorded for this order.</p>
                         <?php endif; ?>
                     </div>
 
