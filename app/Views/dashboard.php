@@ -45,28 +45,25 @@
 <!-- Kategori Produk Section -->
 <section id="kategori" class="py-20 px-6 md:px-16 bg-white">
     <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col items-center mb-12">
-            <h2 class="text-3xl font-black text-[#0B214D]">Kategori Produk</h2>
-            <div class="w-20 h-1 bg-[#F28C28] mt-3"></div>
+        <div class="text-center mb-10">
+            <h2 class="text-[28px] font-bold text-slate-900" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Kategori Produk</h2>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <?php 
-            $bgColors = ['#E5F1FA', '#FDF0E6', '#FCE7F3', '#F8F3E6'];
-            $iconColors = ['#bfdbfe', '#fed7aa', '#fbcfe8', '#fef08a']; 
+            $imgFiles = [
+                'Jasa Joki Tugas Kuliah.png',
+                'Jasa Review Skripsi.png',
+                'Jasa Olah Data Statistik.png',
+                'Jasa Akademik Lainnya.png'
+            ];
+            
             foreach ($kategori as $i => $cat): 
-                $bg = $bgColors[$i % count($bgColors)];
-                $ic = $iconColors[$i % count($iconColors)];
+                $imgFile = $imgFiles[$i % count($imgFiles)];
+                $imgSrc = base_url('images/kategori/' . rawurlencode($imgFile));
             ?>
-            <div class="relative rounded-xl overflow-hidden h-64 group cursor-pointer shadow-sm hover:shadow-md transition-shadow" style="background-color: <?= $bg ?>;">
-                <div class="absolute inset-0 flex items-center justify-end p-8">
-                     <span class="material-symbols-outlined text-9xl" style="color: <?= $ic ?>;"><?= esc($cat->gambar_kategori) ?></span>
-                </div>
-                <div class="absolute bottom-4 left-4">
-                    <div class="bg-[#0B214D] text-white px-6 py-2.5 rounded font-bold text-sm tracking-wide uppercase">
-                        <?= esc($cat->nama_kategori) ?>
-                    </div>
-                </div>
+            <div class="w-full overflow-hidden cursor-pointer hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                 <img src="<?= $imgSrc ?>" alt="<?= esc($cat->nama_kategori) ?>" class="w-full h-auto object-cover block">
             </div>
             <?php endforeach; ?>
         </div>
@@ -140,27 +137,89 @@
 </section>
 
 <!-- Stats Section -->
-<section class="py-16 bg-[#9A7B56] text-white">
-    <div class="max-w-6xl mx-auto px-6 md:px-16 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+<section class="py-20 px-6 md:px-16 bg-white">
+    <div class="max-w-4xl mx-auto bg-[#B4A286] shadow-lg p-10 md:p-16 grid grid-cols-2 gap-y-12 md:gap-y-16 gap-x-8 md:gap-x-12 text-center text-[#151515]">
+        <!-- Item 1 -->
         <div class="flex flex-col items-center">
-            <span class="material-symbols-outlined text-6xl mb-4">account_balance</span>
-            <p class="text-4xl md:text-5xl font-black mb-2 tracking-tight">10.000+</p>
-            <p class="text-sm md:text-base font-bold">Project Selesai</p>
+            <div class="h-28 flex items-center justify-center mb-2">
+                <svg width="85" height="85" viewBox="0 0 100 100">
+                    <path d="M25 15 C22 15 20 17 20 20 L20 85 C20 88 22 90 25 90 L60 90 C63 90 65 88 65 85 L65 20 C65 17 63 15 60 15 Z" fill="#151515"/>
+                    <path d="M35 10 L50 10 L50 20 L35 20 Z" fill="#151515" stroke="#B4A286" stroke-width="2"/>
+                    <rect x="26" y="30" width="12" height="12" fill="none" stroke="#B4A286" stroke-width="2"/>
+                    <path d="M28 36 L31 39 L36 32" fill="none" stroke="#B4A286" stroke-width="2"/>
+                    <rect x="44" y="34" width="14" height="3" fill="#B4A286"/>
+                    <rect x="44" y="39" width="14" height="3" fill="#B4A286"/>
+                    <rect x="26" y="50" width="12" height="12" fill="none" stroke="#B4A286" stroke-width="2"/>
+                    <path d="M28 56 L31 59 L36 52" fill="none" stroke="#B4A286" stroke-width="2"/>
+                    <rect x="44" y="54" width="14" height="3" fill="#B4A286"/>
+                    <rect x="44" y="59" width="14" height="3" fill="#B4A286"/>
+                    <rect x="26" y="70" width="12" height="12" fill="none" stroke="#B4A286" stroke-width="2"/>
+                    <path d="M28 76 L31 79 L36 72" fill="none" stroke="#B4A286" stroke-width="2"/>
+                    <rect x="44" y="74" width="14" height="3" fill="#B4A286"/>
+                    <rect x="44" y="79" width="14" height="3" fill="#B4A286"/>
+                    <path d="M72 15 L80 15 L80 70 L76 85 L72 70 Z" fill="#151515"/>
+                    <path d="M72 25 L80 25 M72 65 L80 65 M76 70 L76 85" fill="none" stroke="#B4A286" stroke-width="2"/>
+                </svg>
+            </div>
+            <p class="text-[44px] md:text-[54px] font-black mb-1 leading-none tracking-tight">10.000+</p>
+            <p class="text-[17px] md:text-[19px] font-medium">Project terselesaikan</p>
         </div>
+
+        <!-- Item 2 -->
         <div class="flex flex-col items-center">
-            <span class="material-symbols-outlined text-6xl mb-4">groups</span>
-            <p class="text-4xl md:text-5xl font-black mb-2 tracking-tight">8.000+</p>
-            <p class="text-sm md:text-base font-bold">Klien Puas</p>
+            <div class="h-28 flex items-center justify-center mb-2">
+                <svg width="120" height="85" viewBox="0 0 110 80">
+                    <circle cx="30" cy="25" r="12" fill="#151515"/>
+                    <path d="M10 75 C10 50, 50 50, 50 75 Z" fill="#151515"/>
+                    <circle cx="80" cy="25" r="12" fill="#151515"/>
+                    <path d="M60 75 C60 50, 100 50, 100 75 Z" fill="#151515"/>
+                    <circle cx="55" cy="38" r="16" fill="#B4A286"/>
+                    <path d="M27 80 C27 47, 83 47, 83 80 Z" fill="#B4A286"/>
+                    <circle cx="55" cy="38" r="14" fill="#151515"/>
+                    <path d="M30 80 C30 50, 80 50, 80 80 Z" fill="#151515"/>
+                </svg>
+            </div>
+            <p class="text-[44px] md:text-[54px] font-black mb-1 leading-none tracking-tight">8.000+</p>
+            <p class="text-[17px] md:text-[19px] font-medium">Klien Puas</p>
         </div>
+
+        <!-- Item 3 -->
         <div class="flex flex-col items-center">
-            <span class="material-symbols-outlined text-6xl mb-4">corporate_fare</span>
-            <p class="text-4xl md:text-5xl font-black mb-2 tracking-tight">100+</p>
-            <p class="text-sm md:text-base font-bold">Mitra & Instansi</p>
+            <div class="h-28 flex items-center justify-center mb-2">
+                <svg width="100" height="85" viewBox="0 0 100 80">
+                    <path d="M50 5 L10 30 L90 30 Z" fill="#151515"/>
+                    <rect x="10" y="32" width="80" height="4" fill="#151515"/>
+                    <rect x="18" y="38" width="10" height="24" fill="#151515"/>
+                    <rect x="36" y="38" width="10" height="24" fill="#151515"/>
+                    <rect x="54" y="38" width="10" height="24" fill="#151515"/>
+                    <rect x="72" y="38" width="10" height="24" fill="#151515"/>
+                    <rect x="10" y="64" width="80" height="4" fill="#151515"/>
+                    <rect x="5" y="70" width="90" height="4" fill="#151515"/>
+                    <rect x="0" y="76" width="100" height="4" fill="#151515"/>
+                </svg>
+            </div>
+            <p class="text-[44px] md:text-[54px] font-black mb-1 leading-none tracking-tight">100+</p>
+            <p class="text-[17px] md:text-[19px] font-medium">Universitas & Instansi</p>
         </div>
+
+        <!-- Item 4 -->
         <div class="flex flex-col items-center">
-            <span class="material-symbols-outlined text-6xl mb-4">school</span>
-            <p class="text-4xl md:text-5xl font-black mb-2 tracking-tight">50+</p>
-            <p class="text-sm md:text-base font-bold">Tim Profesional</p>
+            <div class="h-28 flex items-center justify-center mb-2">
+                <svg width="100" height="95" viewBox="0 0 100 100">
+                    <circle cx="50" cy="40" r="12" fill="#151515"/>
+                    <path d="M50 10 L15 22 L50 34 L85 22 Z" fill="#151515"/>
+                    <path d="M35 28 L35 40 Q50 45 65 40 L65 28 Z" fill="#151515"/>
+                    <path d="M50 22 L80 25 L80 40" fill="none" stroke="#151515" stroke-width="2"/>
+                    <circle cx="80" cy="42" r="2" fill="#151515"/>
+                    <path d="M20 80 C20 55, 80 55, 80 80 Z" fill="#151515"/>
+                    <path d="M15 75 L85 75 C90 75, 90 85, 85 85 L15 85 C10 85, 10 75, 15 75 Z" fill="#151515"/>
+                    <ellipse cx="85" cy="80" rx="3" ry="5" fill="#B4A286"/> 
+                    <path d="M45 75 L55 75 L55 85 L45 85 Z" fill="#B4A286"/> 
+                    <path d="M45 85 L40 95 L45 92 L50 95 L55 92 L60 95 L55 85 Z" fill="#B4A286"/> 
+                </svg>
+            </div>
+            <p class="text-[44px] md:text-[54px] font-black mb-1 leading-none tracking-tight">50+</p>
+            <p class="text-[17px] md:text-[19px] font-medium">Tim Profesional</p>
         </div>
     </div>
 </section>
