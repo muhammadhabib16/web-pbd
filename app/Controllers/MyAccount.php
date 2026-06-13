@@ -164,18 +164,32 @@ class MyAccount extends BaseController
 
         $post = $this->request->getPost();
 
-        // For now, save both billing and shipping to the same fields
-        $updateData = [
-            'nama_depan'    => $post['first_name'] ?? '',
-            'nama_belakang' => $post['last_name'] ?? '',
-            'company'       => $post['company'] ?? '',
-            'country'       => $post['country'] ?? '',
-            'jalan'         => $post['address_1'] ?? '',
-            'detail_alamat' => $post['address_2'] ?? '',
-            'kota'          => $post['city'] ?? '',
-            'provinsi'      => $post['province'] ?? '',
-            'kode_pos'      => $post['postcode'] ?? ''
-        ];
+        // Save billing or shipping appropriately
+        if ($type === 'billing') {
+            $updateData = [
+                'nama_depan'    => $post['first_name'] ?? '',
+                'nama_belakang' => $post['last_name'] ?? '',
+                'company'       => $post['company'] ?? '',
+                'country'       => $post['country'] ?? '',
+                'jalan'         => $post['address_1'] ?? '',
+                'detail_alamat' => $post['address_2'] ?? '',
+                'kota'          => $post['city'] ?? '',
+                'provinsi'      => $post['province'] ?? '',
+                'kode_pos'      => $post['postcode'] ?? ''
+            ];
+        } else {
+            $updateData = [
+                'shipping_nama_depan'    => $post['first_name'] ?? '',
+                'shipping_nama_belakang' => $post['last_name'] ?? '',
+                'shipping_company'       => $post['company'] ?? '',
+                'shipping_country'       => $post['country'] ?? '',
+                'shipping_jalan'         => $post['address_1'] ?? '',
+                'shipping_detail_alamat' => $post['address_2'] ?? '',
+                'shipping_kota'          => $post['city'] ?? '',
+                'shipping_provinsi'      => $post['province'] ?? '',
+                'shipping_kode_pos'      => $post['postcode'] ?? ''
+            ];
+        }
 
         $penggunaModel->update($email, $updateData);
 

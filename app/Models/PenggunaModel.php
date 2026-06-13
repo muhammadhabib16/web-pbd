@@ -14,6 +14,8 @@ class PenggunaModel extends Model
     // Semua kolom yang ada di tabel Pengguna agar bisa diisi nanti saat checkout
     protected $allowedFields    = [
         'email_pengguna', 'password', 'nama_depan', 'nama_belakang', 
-        'company', 'country', 'jalan', 'detail_alamat', 'kota', 'provinsi', 'kode_pos', 'no_telp'
+        'company', 'country', 'jalan', 'detail_alamat', 'kota', 'provinsi', 'kode_pos', 'no_telp',
+        'shipping_nama_depan', 'shipping_nama_belakang', 'shipping_company', 'shipping_country',
+        'shipping_jalan', 'shipping_detail_alamat', 'shipping_kota', 'shipping_provinsi', 'shipping_kode_pos'
     ];
 }

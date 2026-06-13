@@ -233,17 +233,16 @@
                         <div>
                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="text-xl font-bold text-slate-900" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;">Shipping address</h3>
-                                <a href="<?= base_url('my-account/edit-address/shipping') ?>" class="text-[#A68A64] hover:underline text-[13px]"><?= empty($user['jalan']) ? 'Add' : 'Edit' ?></a>
+                                <a href="<?= base_url('my-account/edit-address/shipping') ?>" class="text-[#A68A64] hover:underline text-[13px]"><?= empty($user['shipping_jalan']) ? 'Add' : 'Edit' ?></a>
                             </div>
-                            <?php if(!empty($user['jalan']) || !empty($user['kota'])): ?>
+                            <?php if(!empty($user['shipping_jalan']) || !empty($user['shipping_kota'])): ?>
                                 <address class="not-italic text-[13px] leading-relaxed text-gray-600">
-                                    <?php if(!empty($user['nama_depan'])): ?><?= esc($user['nama_depan'] . ' ' . $user['nama_belakang']) ?><br><?php endif; ?>
-                                    <?php if(!empty($user['company'])): ?><?= esc($user['company']) ?><br><?php endif; ?>
-                                    <?php if(!empty($user['jalan'])): ?><?= esc($user['jalan']) ?><br><?php endif; ?>
-                                    <?php if(!empty($user['detail_alamat'])): ?><?= esc($user['detail_alamat']) ?><br><?php endif; ?>
-                                    <?php if(!empty($user['kota'])): ?><?= esc($user['kota']) ?>, <?= esc($user['provinsi']) ?> <?= esc($user['kode_pos']) ?><br><?php endif; ?>
-                                    <?php if(!empty($user['country'])): ?><?= esc($user['country']) ?><br><?php endif; ?>
-                                    <?php if(!empty($user['no_telp'])): ?><br><?= esc($user['no_telp']) ?><?php endif; ?>
+                                    <?php if(!empty($user['shipping_nama_depan'])): ?><?= esc($user['shipping_nama_depan'] . ' ' . $user['shipping_nama_belakang']) ?><br><?php endif; ?>
+                                    <?php if(!empty($user['shipping_company'])): ?><?= esc($user['shipping_company']) ?><br><?php endif; ?>
+                                    <?php if(!empty($user['shipping_jalan'])): ?><?= esc($user['shipping_jalan']) ?><br><?php endif; ?>
+                                    <?php if(!empty($user['shipping_detail_alamat'])): ?><?= esc($user['shipping_detail_alamat']) ?><br><?php endif; ?>
+                                    <?php if(!empty($user['shipping_kota'])): ?><?= esc($user['shipping_kota']) ?>, <?= esc($user['shipping_provinsi']) ?> <?= esc($user['shipping_kode_pos']) ?><br><?php endif; ?>
+                                    <?php if(!empty($user['shipping_country'])): ?><?= esc($user['shipping_country']) ?><br><?php endif; ?>
                                 </address>
                             <?php else: ?>
                                 <p class="text-[13px] italic text-gray-500">You have not set up this type of address yet.</p>
@@ -252,61 +251,62 @@
                     </div>
 
                 <?php elseif ($tab == 'edit_address'): ?>
+                    <?php $prefix = $type === 'shipping' ? 'shipping_' : ''; ?>
                     <h2 class="text-2xl font-bold text-slate-900 mb-6" style="font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;"><?= ucfirst($type) ?> address</h2>
                     <form action="<?= base_url('my-account/save-address/' . $type) ?>" method="POST" class="max-w-3xl">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label class="block text-[13px] font-bold text-slate-700 mb-2">First name <span class="text-red-500">*</span></label>
-                                <input type="text" name="first_name" value="<?= esc($user['nama_depan']) ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
+                                <input type="text" name="first_name" value="<?= esc($user[$prefix . 'nama_depan'] ?? '') ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
                             </div>
                             <div>
                                 <label class="block text-[13px] font-bold text-slate-700 mb-2">Last name <span class="text-red-500">*</span></label>
-                                <input type="text" name="last_name" value="<?= esc($user['nama_belakang']) ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
+                                <input type="text" name="last_name" value="<?= esc($user[$prefix . 'nama_belakang'] ?? '') ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
                             </div>
                         </div>
 
                         <div class="mb-6">
                             <label class="block text-[13px] font-bold text-slate-700 mb-2">Company name (optional)</label>
-                            <input type="text" name="company" value="<?= esc($user['company']) ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]">
+                            <input type="text" name="company" value="<?= esc($user[$prefix . 'company'] ?? '') ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]">
                         </div>
 
                         <div class="mb-6">
                             <label class="block text-[13px] font-bold text-slate-700 mb-2">Country / Region <span class="text-red-500">*</span></label>
                             <select name="country" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px] bg-white appearance-none" required>
                                 <option value="">Select a country / region...</option>
-                                <option value="Indonesia" <?= $user['country'] == 'Indonesia' ? 'selected' : '' ?>>Indonesia</option>
-                                <option value="Malaysia" <?= $user['country'] == 'Malaysia' ? 'selected' : '' ?>>Malaysia</option>
-                                <option value="Singapore" <?= $user['country'] == 'Singapore' ? 'selected' : '' ?>>Singapore</option>
+                                <option value="Indonesia" <?= ($user[$prefix . 'country'] ?? '') == 'Indonesia' ? 'selected' : '' ?>>Indonesia</option>
+                                <option value="Malaysia" <?= ($user[$prefix . 'country'] ?? '') == 'Malaysia' ? 'selected' : '' ?>>Malaysia</option>
+                                <option value="Singapore" <?= ($user[$prefix . 'country'] ?? '') == 'Singapore' ? 'selected' : '' ?>>Singapore</option>
                             </select>
                         </div>
 
                         <div class="mb-6">
                             <label class="block text-[13px] font-bold text-slate-700 mb-2">Street address <span class="text-red-500">*</span></label>
-                            <input type="text" name="address_1" value="<?= esc($user['jalan']) ?>" placeholder="House number and street name" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px] mb-3" required>
-                            <input type="text" name="address_2" value="<?= esc($user['detail_alamat']) ?>" placeholder="Apartment, suite, unit, etc. (optional)" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]">
+                            <input type="text" name="address_1" value="<?= esc($user[$prefix . 'jalan'] ?? '') ?>" placeholder="House number and street name" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px] mb-3" required>
+                            <input type="text" name="address_2" value="<?= esc($user[$prefix . 'detail_alamat'] ?? '') ?>" placeholder="Apartment, suite, unit, etc. (optional)" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]">
                         </div>
 
                         <div class="mb-6">
                             <label class="block text-[13px] font-bold text-slate-700 mb-2">Town / City <span class="text-red-500">*</span></label>
-                            <input type="text" name="city" value="<?= esc($user['kota']) ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
+                            <input type="text" name="city" value="<?= esc($user[$prefix . 'kota'] ?? '') ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
                         </div>
 
                         <div class="mb-6">
                             <label class="block text-[13px] font-bold text-slate-700 mb-2">Province <span class="text-red-500">*</span></label>
                             <select name="province" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px] bg-white appearance-none" required>
                                 <option value="">Select an option...</option>
-                                <option value="Jawa Barat" <?= $user['provinsi'] == 'Jawa Barat' ? 'selected' : '' ?>>Jawa Barat</option>
-                                <option value="DKI Jakarta" <?= $user['provinsi'] == 'DKI Jakarta' ? 'selected' : '' ?>>DKI Jakarta</option>
-                                <option value="Banten" <?= $user['provinsi'] == 'Banten' ? 'selected' : '' ?>>Banten</option>
-                                <option value="Jawa Tengah" <?= $user['provinsi'] == 'Jawa Tengah' ? 'selected' : '' ?>>Jawa Tengah</option>
-                                <option value="Jawa Timur" <?= $user['provinsi'] == 'Jawa Timur' ? 'selected' : '' ?>>Jawa Timur</option>
-                                <option value="DI Yogyakarta" <?= $user['provinsi'] == 'DI Yogyakarta' ? 'selected' : '' ?>>DI Yogyakarta</option>
+                                <option value="Jawa Barat" <?= ($user[$prefix . 'provinsi'] ?? '') == 'Jawa Barat' ? 'selected' : '' ?>>Jawa Barat</option>
+                                <option value="DKI Jakarta" <?= ($user[$prefix . 'provinsi'] ?? '') == 'DKI Jakarta' ? 'selected' : '' ?>>DKI Jakarta</option>
+                                <option value="Banten" <?= ($user[$prefix . 'provinsi'] ?? '') == 'Banten' ? 'selected' : '' ?>>Banten</option>
+                                <option value="Jawa Tengah" <?= ($user[$prefix . 'provinsi'] ?? '') == 'Jawa Tengah' ? 'selected' : '' ?>>Jawa Tengah</option>
+                                <option value="Jawa Timur" <?= ($user[$prefix . 'provinsi'] ?? '') == 'Jawa Timur' ? 'selected' : '' ?>>Jawa Timur</option>
+                                <option value="DI Yogyakarta" <?= ($user[$prefix . 'provinsi'] ?? '') == 'DI Yogyakarta' ? 'selected' : '' ?>>DI Yogyakarta</option>
                             </select>
                         </div>
 
                         <div class="mb-8">
                             <label class="block text-[13px] font-bold text-slate-700 mb-2">Postcode / ZIP <span class="text-red-500">*</span></label>
-                            <input type="text" name="postcode" value="<?= esc($user['kode_pos']) ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
+                            <input type="text" name="postcode" value="<?= esc($user[$prefix . 'kode_pos'] ?? '') ?>" class="w-full border border-gray-200 px-4 py-2.5 outline-none focus:border-gray-400 transition-colors text-[13px]" required>
                         </div>
 
                         <button type="submit" class="bg-[#B49E78] text-white px-8 py-3 text-[13px] font-bold hover:bg-[#a38f6c] transition-colors rounded-sm shadow-sm">
